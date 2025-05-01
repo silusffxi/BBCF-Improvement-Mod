@@ -75,9 +75,6 @@
     <ClCompile Include="src\Web\update_check.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\dllmain.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\Settings.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -150,6 +147,12 @@
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="src\_main.cpp" />
+    <ClCompile Include="src\bbcf_im.cpp" />
+    <ClCompile Include="src\globals.cpp" />
+    <ClCompile Include="src\ui\dialogs.cpp" />
+    <ClCompile Include="src\proxies\dinput8_proxy.cpp" />
+    <ClCompile Include="src\platform\filesystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
@@ -291,6 +294,11 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="src\platform.h" />
+    <ClInclude Include="src\bbcf_im.hpp" />
+    <ClInclude Include="src\globals.hpp" />
+    <ClInclude Include="src\ui\dialogs.hpp" />
+    <ClInclude Include="src\proxies\dinput8_proxy.h" />
+    <ClInclude Include="src\platform\filesystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">
