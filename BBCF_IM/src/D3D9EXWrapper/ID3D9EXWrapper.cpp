@@ -2,7 +2,7 @@
 
 #include "ID3D9EXWrapper_Device.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 Direct3D9ExWrapper::Direct3D9ExWrapper(IDirect3D9Ex **ppIDirect3D9Ex)
 {

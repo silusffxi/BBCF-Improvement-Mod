@@ -2,7 +2,7 @@
 
 #include "Palette/impl_format.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/interfaces.h"
 OnlinePaletteManager::OnlinePaletteManager(PaletteManager* pPaletteManager, CharPaletteHandle* pP1CharPalHandle,
 	CharPaletteHandle* pP2CharPalHandle, RoomManager* pRoomManager)

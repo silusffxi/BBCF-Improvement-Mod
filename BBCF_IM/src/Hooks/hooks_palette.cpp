@@ -3,7 +3,7 @@
 #include "HookManager.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Game/gamestates.h"
 
 DWORD GetCharObjPointersJmpBackAddr = 0;

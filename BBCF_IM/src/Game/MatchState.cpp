@@ -1,7 +1,7 @@
 #include "MatchState.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Overlay/Window/PaletteEditorWindow.h"
 #include "Overlay/WindowContainer/WindowType.h"
 #include "Overlay/WindowManager.h"

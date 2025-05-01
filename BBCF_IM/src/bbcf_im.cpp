@@ -2,7 +2,7 @@
 #include <thread>
 #include "Core/crashdump.h"
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "logger.h"
 #include "Core/Settings.h"
 #include "Hooks/hooks_detours.h"
 #include "Overlay/WindowManager.h"

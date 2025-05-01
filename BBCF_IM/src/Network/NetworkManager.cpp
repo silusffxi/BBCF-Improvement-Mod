@@ -1,12 +1,10 @@
 #include "NetworkManager.h"
-
 #include "RoomManager.h"
-
 #include "Core/interfaces.h"
-#include "Core/logger.h"
 #include "Core/utils.h"
 #include "Game/gamestates.h"
 #include "Overlay/Logger/ImGuiLogger.h"
+#include "../logger.h"
 
 NetworkManager::NetworkManager(SteamNetworkingWrapper* SteamNetworking, CSteamID steamID)
 {

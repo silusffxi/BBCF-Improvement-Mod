@@ -7,7 +7,7 @@
 
 #include "Core/info.h"
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/Settings.h"
 #include "Core/utils.h"
 #include "Web/update_check.h"

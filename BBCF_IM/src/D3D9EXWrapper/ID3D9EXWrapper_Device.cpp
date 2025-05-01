@@ -1,7 +1,7 @@
 #include "ID3D9EXWrapper_Device.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Game/MatchState.h"
 #include "Hooks/hooks_bbcf.h"
 #include "Hooks/hooks_customGameModes.h"

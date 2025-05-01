@@ -2,7 +2,7 @@
 
 #include "d3d9.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 #include <detours.h>
 

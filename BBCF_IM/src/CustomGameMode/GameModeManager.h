@@ -11,7 +11,7 @@ public:
 	void SetActiveGameMode(CustomGameMode gameMode);
 
 	CustomGameMode& GetActiveGameModeRef();
-	const CustomGameMode GameModeManager::GetActiveGameMode() const;
+	const CustomGameMode GetActiveGameMode() const;
 	const std::string& GetCurrentGameModeName() const;
 	const std::string& GetGameModeName(CustomGameMode gameMode) const;
 	const std::string& GetGameModeDesc(CustomGameMode gameMode) const;

@@ -1,6 +1,6 @@
 #include "HookManager.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 #include <Psapi.h>
 

@@ -1,7 +1,7 @@
 #include <atomic>
 #include <filesystem>
 #include <mutex>
-#include "../Core/logger.h"
+#include "../logger.h"
 #include "../platform.h"
 #include "../platform/filesystem.hpp"
 #include "dinput8_proxy.h"

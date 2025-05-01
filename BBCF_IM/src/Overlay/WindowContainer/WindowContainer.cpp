@@ -14,7 +14,7 @@
 #include "Overlay/Window/ReplayDBPopupWindow.h" 
 
 #include "Core/info.h"
-#include "Core/logger.h"
+#include "../../logger.h"
 #include "Core/Settings.h"
 
 WindowContainer::WindowContainer()

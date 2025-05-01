@@ -3,7 +3,7 @@
 #include "url_downloader.h"
 
 #include "Core/info.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/interfaces.h"
 #include "Overlay/Logger/ImGuiLogger.h"
 #include "Overlay/WindowManager.h"

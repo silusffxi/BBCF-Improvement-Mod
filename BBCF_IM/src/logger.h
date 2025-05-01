@@ -1,5 +1,5 @@
 #pragma once
-#include "Settings.h"
+#include "Core/Settings.h"
 
 #include "D3D9EXWrapper/d3d9.h"
 
@@ -34,3 +34,10 @@ char* getFullDate();
 void logSettingsIni();
 bool hookSucceeded(PBYTE addr, const char* funcName);
 void logD3DPParams(D3DPRESENT_PARAMETERS* pPresentationParameters, bool isOriginalSettings = true);
+
+#if defined(__cplusplus)
+namespace bbcf_im
+{
+    
+}
+#endif

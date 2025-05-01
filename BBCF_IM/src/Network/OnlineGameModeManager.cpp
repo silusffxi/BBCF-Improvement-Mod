@@ -1,6 +1,6 @@
 #include "OnlineGameModeManager.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 OnlineGameModeManager::OnlineGameModeManager(GameModeManager* pGameModeManager, RoomManager* pRoomManager)
 	: m_pGameModeManager(pGameModeManager), m_pRoomManager(pRoomManager),

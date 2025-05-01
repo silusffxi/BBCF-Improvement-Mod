@@ -3,7 +3,7 @@
 #include "HookManager.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "D3D9EXWrapper/ID3D9Wrapper_Sprite.h"
 #include "D3D9EXWrapper/ID3DXWrapper_Effect.h"
 #include "D3D9EXWrapper/ID3D9EXWrapper.h"

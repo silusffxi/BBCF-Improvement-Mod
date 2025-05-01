@@ -17,6 +17,7 @@
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="src\bbcf_im.cpp" />
     <ClCompile Include="src\globals.cpp" />
+    <ClCompile Include="src\logger.cpp" />
     <ClCompile Include="src\Overlay\Window\ReplayDBPopupWindow.cpp" />
     <ClCompile Include="src\Network\ReplayUploadManager.cpp" />
     <ClCompile Include="src\Game\SnapshotApparatus\SnapshotApparatus.cpp" />
@@ -77,7 +78,6 @@
     <ClCompile Include="src\D3D9EXWrapper\ID3D9Wrapper_Sprite.cpp" />
     <ClCompile Include="src\D3D9EXWrapper\ID3DXWrapper_Effect.cpp" />
     <ClCompile Include="src\Hooks\HookManager.cpp" />
-    <ClCompile Include="src\Core\logger.cpp" />
     <ClCompile Include="src\Core\Settings.cpp" />
     <ClCompile Include="src\Palette\impl_templates.cpp" />
     <ClCompile Include="src\Palette\PaletteManager.cpp" />
@@ -109,6 +109,7 @@
     <ClInclude Include="src\Core\keycodes.h" />
     <ClInclude Include="src\Game\ReplayFiles\ReplayList.h" />
     <ClInclude Include="src\globals.hpp" />
+    <ClInclude Include="src\logger.h" />
     <ClInclude Include="src\Overlay\Window\ReplayDBPopupWindow.h" />
     <ClInclude Include="src\Network\ReplayUploadManager.h" />
     <ClInclude Include="src\Game\GhidraDefs.h" />
@@ -185,7 +186,6 @@
     <ClInclude Include="src\D3D9EXWrapper\ID3DXWrapper_Effect.h" />
     <ClInclude Include="src\Hooks\HookManager.h" />
     <ClInclude Include="src\Palette\impl_format.h" />
-    <ClInclude Include="src\Core\logger.h" />
     <ClInclude Include="src\Core\Settings.h" />
     <ClInclude Include="src\Game\gamestates.h" />
     <ClInclude Include="src\Palette\PaletteManager.h" />

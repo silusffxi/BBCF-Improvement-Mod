@@ -1,6 +1,6 @@
 #include "SteamApiHelper.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Overlay/Logger/ImGuiLogger.h"
 
 SteamApiHelper::SteamApiHelper(ISteamUserStats* pSteamUserStats, ISteamFriends* pSteamFriends)

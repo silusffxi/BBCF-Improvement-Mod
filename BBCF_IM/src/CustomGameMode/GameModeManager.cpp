@@ -1,6 +1,6 @@
 #include "GameModeManager.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Hooks/HookManager.h"
 #include "Hooks/hooks_customGameModes.h"
 

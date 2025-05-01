@@ -1,6 +1,6 @@
 #include "ID3D9Wrapper_Sprite.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 ID3DXSpriteWrapper::ID3DXSpriteWrapper(LPD3DXSPRITE** ppSprite)
 {

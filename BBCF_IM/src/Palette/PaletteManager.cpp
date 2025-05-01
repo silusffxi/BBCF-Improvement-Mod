@@ -2,7 +2,7 @@
 
 #include "impl_templates.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/utils.h"
 #include "Game/characters.h"
 #include "Overlay/Logger/ImGuiLogger.h"

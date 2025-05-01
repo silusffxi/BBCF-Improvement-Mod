@@ -1,7 +1,7 @@
 #include "SteamNetworkingWrapper.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/utils.h"
 #include "Game/gamestates.h"
 #include "Overlay/Logger/ImGuiLogger.h"

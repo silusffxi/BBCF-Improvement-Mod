@@ -1,6 +1,6 @@
 #include "SteamFriendsWrapper.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 #include "Core/utils.h"
 
 SteamFriendsWrapper::SteamFriendsWrapper(ISteamFriends** pSteamFriends)

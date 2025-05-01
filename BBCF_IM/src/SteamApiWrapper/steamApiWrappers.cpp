@@ -1,7 +1,7 @@
 #include "steamApiWrappers.h"
 
 #include "Core/interfaces.h"
-#include "Core/logger.h"
+#include "../logger.h"
 
 bool InitSteamApiWrappers()
 {

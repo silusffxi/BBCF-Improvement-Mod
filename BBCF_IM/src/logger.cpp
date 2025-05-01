@@ -97,7 +97,7 @@ void logSettingsIni()
 	//X-Macro
 #define SETTING(_type, _var, _inistring, _defaultval) \
 	oss << "\t- " << _inistring << " = " << Settings::settingsIni.##_var << "\n";
-#include "settings.def"
+#include "Core/settings.def"
 #undef SETTING
 
 	LOG(1, oss.str().c_str());

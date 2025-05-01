@@ -1,6 +1,6 @@
 #include "RoomManager.h"
 
-#include "Core/logger.h"
+#include "../logger.h"
 
 RoomManager::RoomManager(NetworkManager* pNetworkManager, ISteamFriends* pSteamFriends, CSteamID steamID)
 	: m_pNetworkManager(pNetworkManager), m_pSteamFriends(pSteamFriends),

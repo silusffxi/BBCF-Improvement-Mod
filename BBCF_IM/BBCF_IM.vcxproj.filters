@@ -66,9 +66,6 @@
     <ClCompile Include="src\Core\utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\logger.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\crashdump.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -153,6 +150,7 @@
     <ClCompile Include="src\ui\dialogs.cpp" />
     <ClCompile Include="src\proxies\dinput8_proxy.cpp" />
     <ClCompile Include="src\platform\filesystem.cpp" />
+    <ClCompile Include="src\logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
@@ -186,9 +184,6 @@
       <Filter>include\SteamApiWrapper</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\utils.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\logger.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\crashdump.h">
@@ -299,6 +294,7 @@
     <ClInclude Include="src\ui\dialogs.hpp" />
     <ClInclude Include="src\proxies\dinput8_proxy.h" />
     <ClInclude Include="src\platform\filesystem.hpp" />
+    <ClInclude Include="src\logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">
