@@ -10,8 +10,6 @@
 
 #include <detours.h>
 
-#pragma comment(lib, "detours.lib")
-
 typedef HRESULT(__stdcall* Direct3DCreate9Ex_t)(UINT SDKVersion, IDirect3D9Ex**);
 typedef HRESULT(APIENTRY* D3DXCreateEffect_t)(LPDIRECT3DDEVICE9, LPCVOID, UINT, CONST D3DXMACRO*, LPD3DXINCLUDE, DWORD, LPD3DXEFFECTPOOL, LPD3DXEFFECT*, LPD3DXBUFFER*);
 typedef HRESULT(WINAPI* D3DXCreateSprite_t)(LPDIRECT3DDEVICE9 pDevice, LPD3DXSPRITE* ppSprite);

@@ -6,8 +6,6 @@
 
 #include <detours.h>
 
-#pragma comment(lib, "detours.lib")
-
 typedef D3DXMATRIX* (WINAPI *D3DXMatrixLookAtLH_t)
 (D3DXMATRIX *pOut, CONST D3DXVECTOR3 *pEye, CONST D3DXVECTOR3 *pAt, CONST D3DXVECTOR3 *pUp);
 
