@@ -6,7 +6,7 @@
 #include "Hooks/hooks_detours.h"
 #include "Overlay/WindowManager.h"
 
-#include <Windows.h>
+#include "../platform.h"
 
 HMODULE hOriginalDinput;
 

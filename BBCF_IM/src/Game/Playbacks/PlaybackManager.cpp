@@ -3,8 +3,8 @@
 #include <string>
 #include <iostream>
 #include <ostream>
-#include <windows.h>
 #include <fstream>
+#include "../../platform.h"
 #include "Core/utils.h"
 
 

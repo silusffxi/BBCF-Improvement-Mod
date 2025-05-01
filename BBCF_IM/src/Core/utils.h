@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <Windows.h>
+#include "../platform.h"
 
 #define SAFE_RELEASE(x) if( x ) { (x)->Release(); (x) = NULL; }
 #define SAFE_DELETE(x) if( x ) { delete(x); (x) = NULL; }

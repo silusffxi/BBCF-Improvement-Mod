@@ -63,10 +63,6 @@
     <ClCompile Include="src\SteamApiWrapper\SteamUtilsWrapper.cpp">
       <Filter>src\SteamApiWrapper</Filter>
     </ClCompile>
-    <ClCompile Include="depends\imgui\imgui.cpp" />
-    <ClCompile Include="depends\imgui\imgui_demo.cpp" />
-    <ClCompile Include="depends\imgui\imgui_draw.cpp" />
-    <ClCompile Include="depends\imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="src\Core\utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -156,13 +152,6 @@
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="depends\imgui\imgui.h" />
-    <ClInclude Include="depends\imgui\imgui_impl_dx9.h" />
-    <ClInclude Include="depends\imgui\imgui_internal.h" />
-    <ClInclude Include="depends\imgui\stb_rect_pack.h" />
-    <ClInclude Include="depends\imgui\stb_textedit.h" />
-    <ClInclude Include="depends\imgui\stb_truetype.h" />
-    <ClInclude Include="depends\imgui\imconfig.h" />
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
       <Filter>include\D3D9ExWrapper</Filter>
     </ClInclude>
@@ -285,7 +274,6 @@
     <ClInclude Include="src\Overlay\Window\PlaybackEditorWindow.h" />
     <ClInclude Include="src\Game\Jonb\JonbDBReader.h" />
     <ClInclude Include="src\Game\Jonb\JonbDBEntry.h" />
-    <ClInclude Include="depends\imgui\stb_image.h" />
     <ClInclude Include="src\Overlay\Window\FrameAdvantage\PlayerExtendedData.h" />
     <ClInclude Include="src\Overlay\Window\ComboDataWindow.h" />
     <ClInclude Include="src\Game\GhidraDefs.h" />
@@ -302,6 +290,7 @@
     <ClInclude Include="imgui\stb_rect_pack.h" />
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
+    <ClInclude Include="src\platform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">
@@ -312,11 +301,5 @@
     </None>
     <None Include="src\Core\settings.def" />
     <None Include="resource\palettes.ini" />
-    <None Include=".gitignore" />
-    <None Include="LICENSE" />
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="USER_README.txt" />
   </ItemGroup>
 </Project>

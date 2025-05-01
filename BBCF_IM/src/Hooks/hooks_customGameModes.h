@@ -1,6 +1,5 @@
 #pragma once
-
-#include <Windows.h>
+#include "../platform.h"
 
 extern DWORD steroid_HeatModifyJmpBackAddr;
 

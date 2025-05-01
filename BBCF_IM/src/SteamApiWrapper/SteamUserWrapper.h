@@ -1,7 +1,6 @@
 #pragma once
 #include <isteamuser.h>
-
-#include <Windows.h>
+#include "../platform.h"
 
 interface SteamUserWrapper : public ISteamUser
 {

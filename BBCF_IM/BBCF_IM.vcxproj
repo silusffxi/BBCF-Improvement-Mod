@@ -146,6 +146,7 @@
     <ClInclude Include="src\Hooks\hooks_customGameModes.h" />
     <ClInclude Include="src\Hooks\hooks_detours.h" />
     <ClInclude Include="src\Hooks\hooks_palette.h" />
+    <ClInclude Include="src\platform.h" />
     <ClInclude Include="src\SteamApiWrapper\steamApiWrappers.h" />
     <ClInclude Include="src\Game\CharData.h" />
     <ClInclude Include="src\Core\interfaces.h" />

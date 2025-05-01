@@ -21,14 +21,11 @@
 #include <fstream>
 #include <array>
 #include "Core/info.h"
-#include <windows.h>
 #include "Game/Playbacks/PlaybackManager.h"
 #include "Overlay/imgui_utils.h"
 #include <cstdlib>
 #include <ctime>
-
-
-
+#include "../../platform.h"
 
 void ScrWindow::Draw()
 {

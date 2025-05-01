@@ -1,8 +1,7 @@
 #pragma once
 #include <isteamclient.h>
 #include <isteamnetworking.h>
-
-#include <Windows.h>
+#include "../platform.h"
 
 interface SteamNetworkingWrapper : public ISteamNetworking
 {
