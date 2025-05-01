@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "ScrWindow.h"
 
 #include "Core/interfaces.h"
