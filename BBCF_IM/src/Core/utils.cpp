@@ -1,37 +1,12 @@
-#include "utils.h"
-
 #include <cstdio>
 #include <fstream>
-#include <Psapi.h>
+#include "../platform.h"
+#include "../globals.hpp"
+#include "utils.h"
 
-char* GetBbcfBaseAdress() {
-	static char* bbcf_base = NULL;
-	
-	// no point in calculating this more than once
-	if (bbcf_base != NULL) {
-		return bbcf_base;
-	}
-
-
-	//Get all module related information
-			//Get process name
-	TCHAR szFileName[MAX_PATH + 1];
-	GetModuleFileName(NULL, szFileName, MAX_PATH + 1);
-
-	MODULEINFO modinfo = { 0 };
-	HMODULE hModule = GetModuleHandle(szFileName);
-	if (hModule == 0) {
-		return NULL;
-	}
-	GetModuleInformation(GetCurrentProcess(), hModule, &modinfo, sizeof(MODULEINFO));
-	////////
-
-	//Assign our base and module size
-	//Having the values right is ESSENTIAL, this makes sure
-	//that we don't scan unwanted memory and leading our game to crash
-	long base = (long)modinfo.lpBaseOfDll;
-	bbcf_base = (char*)base;
-	return bbcf_base;
+char* GetBbcfBaseAdress()
+{
+	return bbcf_im::globals::bbcf_base_address;
 }
 void WriteToProtectedMemory(uintptr_t addressToWrite, char* valueToWrite, int byteNum)
 {

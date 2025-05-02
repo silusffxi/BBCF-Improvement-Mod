@@ -9,3 +9,4 @@
 #include <atlstr.h>
 #include <wininet.h>
 #include <DbgHelp.h>
+#include <Psapi.h>

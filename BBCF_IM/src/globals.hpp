@@ -5,6 +5,8 @@
 
 namespace bbcf_im::globals
 {
+    extern char* bbcf_base_address;
+
     extern std::filesystem::path bbcf_im_dir;
 
     extern std::filesystem::path host_process_dir;

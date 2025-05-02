@@ -5,6 +5,8 @@
 
 using namespace bbcf_im;
 
+char* globals::bbcf_base_address = nullptr;
+
 std::filesystem::path globals::bbcf_im_dir = L"";
 
 std::filesystem::path globals::host_process_dir = L"";

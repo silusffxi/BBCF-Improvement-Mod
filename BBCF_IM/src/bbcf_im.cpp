@@ -9,6 +9,7 @@
 #include "platform/filesystem.hpp"
 #include "proxies/dinput8_proxy.h"
 #include "ui/dialogs.hpp"
+#include "utilities/memory_tools.h"
 #include "platform.h"
 #include "globals.hpp"
 #include "logger.h"
@@ -96,6 +97,8 @@ bool bbcf_im::start()
 
     globals::module_path = get_module_file_path(globals::instance_module);
     globals::module_dir  = globals::module_path.parent_path();
+
+    globals::bbcf_base_address = memory_tools::get_bbcf_base_address();
 
     create_directories();
 

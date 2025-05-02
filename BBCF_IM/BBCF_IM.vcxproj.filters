@@ -153,6 +153,7 @@
     <ClCompile Include="src\logger.cpp" />
     <ClCompile Include="src\utilities\debug_tools.cpp" />
     <ClCompile Include="src\d3d\d3d_logger.cpp" />
+    <ClCompile Include="src\utilities\memory_tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
@@ -299,6 +300,7 @@
     <ClInclude Include="src\logger.h" />
     <ClInclude Include="src\utilities\debug_tools.hpp" />
     <ClInclude Include="src\d3d\d3d_logger.h" />
+    <ClInclude Include="src\utilities\memory_tools.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">
