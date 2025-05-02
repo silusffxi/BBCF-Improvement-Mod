@@ -29,6 +29,5 @@ char* memory_tools::get_bbcf_base_address()
     }
 
     const auto base_ptr = static_cast<char*>(mod_info.lpBaseOfDll);
-    CloseHandle(bbcf_module);
     return base_ptr;
 }
