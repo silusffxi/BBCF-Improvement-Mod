@@ -6,6 +6,7 @@
 #include "Overlay/imgui_utils.h"
 #include "Overlay/Logger/ImGuiLogger.h"
 #include "Palette/impl_format.h"
+#include "../../Palette/palette_data.h"
 
 #include <imgui.h>
 
@@ -13,6 +14,8 @@
 
 #define NUMBER_OF_COLOR_BOXES (IMPL_PALETTE_DATALEN / sizeof(int)) // 256
 #define COLUMNS 16
+
+using namespace bbcf_im;
 
 const int COLOR_BLACK = 0xFF000000;
 const int COLOR_WHITE = 0xFFFFFFFF;
@@ -350,13 +353,14 @@ void PaletteEditorWindow::FileSelection()
 	}
 
 	ImGui::SameLine();
-	ImGui::Text(palFileNames[m_selectedFile]);
+	ImGui::Text("%s", palettes::palette_file_names[m_selectedFile].c_str());
 
 	if (ImGui::BeginPopup("select_file_pal"))
 	{
 		for (int i = 0; i < TOTAL_PALETTE_FILES; i++)
 		{
-			if (ImGui::Selectable(palFileNames[i]))
+            const auto palette_file_name = palettes::palette_file_names[i].c_str();
+			if (ImGui::Selectable(palette_file_name))
 			{
 				DisableHighlightModes();
 				m_selectedFile = (PaletteFile)(i);

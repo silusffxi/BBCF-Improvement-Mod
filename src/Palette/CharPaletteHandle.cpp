@@ -1,21 +1,22 @@
-#include "CharPaletteHandle.h"
-
 #include "../logger.h"
-//#include "impl_templates.cpp"
+#include "CharPaletteHandle.h"
 
 #define BLOOM_PALETTE_INDEX 21
 
-char* palFileNames[TOTAL_PALETTE_FILES] =
+namespace
 {
-	"Character",
-	"Effect01",
-	"Effect02",
-	"Effect03",
-	"Effect04",
-	"Effect05",
-	"Effect06",
-	"Effect07"
-};
+    char* palFileNames[TOTAL_PALETTE_FILES] =
+    {
+        "Character",
+        "Effect01",
+        "Effect02",
+        "Effect03",
+        "Effect04",
+        "Effect05",
+        "Effect06",
+        "Effect07"
+    };
+}
 
 char* CharPaletteHandle::GetPalFileAddr(const char* base, int palIndex, int fileID)
 {
@@ -202,7 +203,7 @@ void CharPaletteHandle::ReplaceAllPalFiles(IMPL_data_t* newPaletteData, int palI
 
 void CharPaletteHandle::BackupOrigPal()
 {
-	LOG(2, "CharPaletteHandle::BackupOrigPal\n");
+	LOG(2, "%s", "CharPaletteHandle::BackupOrigPal")
 
 	const char* pSrc = 0;
 	char* pDst = m_origPalBackup.file0;
@@ -219,7 +220,7 @@ void CharPaletteHandle::BackupOrigPal()
 
 void CharPaletteHandle::RestoreOrigPal()
 {
-	LOG(2, "CharPaletteHandle::RestoreOrigPalette\n");
+	LOG(2, "%s", "CharPaletteHandle::RestoreOrigPalette")
 
 	ReplacePalData(&m_origPalBackup);
 }

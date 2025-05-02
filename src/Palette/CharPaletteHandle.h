@@ -4,7 +4,7 @@
 #define MAX_PAL_INDEX 23
 #define TOTAL_PALETTE_FILES 8
 
-extern char* palFileNames[TOTAL_PALETTE_FILES];
+//extern char* palFileNames[TOTAL_PALETTE_FILES];
 
 enum PaletteFile
 {
