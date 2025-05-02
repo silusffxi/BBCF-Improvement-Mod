@@ -15,6 +15,8 @@ namespace bbcf_im::platform
     public:
         static bool create_directory(const std::string& path);
         static bool create_directory(const std::wstring& path);
+        static bool exists(const std::string& path);
+        static bool exists(const std::wstring& path);
         static std::filesystem::path get_system_directory();
     };
 }

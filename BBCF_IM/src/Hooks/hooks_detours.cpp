@@ -228,15 +228,15 @@ bool placeHooks_detours()
 	PBYTE pSteamAPI_Init = (PBYTE)GetProcAddress(hM_steam_api, "SteamAPI_Init");
 	PBYTE pCreateWindowExW = (PBYTE)GetProcAddress(hM_user32, "CreateWindowExW");
 
-	if (!hookSucceeded((PBYTE)pDirect3DCreate9Ex, "Direct3DCreate9Ex"))
+	if (!bbcf_im_log_hook_succeeded((PBYTE)pDirect3DCreate9Ex, "Direct3DCreate9Ex"))
 		return false;
-	if (!hookSucceeded((PBYTE)pD3DXCreateEffect, "D3DXCreateEffect"))
+	if (!bbcf_im_log_hook_succeeded((PBYTE)pD3DXCreateEffect, "D3DXCreateEffect"))
 		return false;
-	if (!hookSucceeded((PBYTE)pD3DXCreateSprite, "D3DXCreateSprite"))
+	if (!bbcf_im_log_hook_succeeded((PBYTE)pD3DXCreateSprite, "D3DXCreateSprite"))
 		return false;
-	if (!hookSucceeded((PBYTE)pSteamAPI_Init, "SteamAPI_Init"))
+	if (!bbcf_im_log_hook_succeeded((PBYTE)pSteamAPI_Init, "SteamAPI_Init"))
 		return false;
-	if (!hookSucceeded((PBYTE)pCreateWindowExW, "CreateWindowExW"))
+	if (!bbcf_im_log_hook_succeeded((PBYTE)pCreateWindowExW, "CreateWindowExW"))
 		return false;
 
 	orig_Direct3DCreate9Ex = (Direct3DCreate9Ex_t)DetourFunction(pDirect3DCreate9Ex, (LPBYTE)hook_Direct3DCreate9Ex);

@@ -2,6 +2,8 @@
 
 #include "Core/interfaces.h"
 #include "../logger.h"
+#include "../d3d/d3d_logger.h"
+#include "../Core/Settings.h"
 #include "Game/MatchState.h"
 #include "Hooks/hooks_bbcf.h"
 #include "Hooks/hooks_customGameModes.h"
@@ -955,9 +957,9 @@ HRESULT APIENTRY Direct3DDevice9ExWrapper::CreateDepthStencilSurfaceEx(UINT Widt
 HRESULT APIENTRY Direct3DDevice9ExWrapper::ResetEx(D3DPRESENT_PARAMETERS* pPresentationParameters, D3DDISPLAYMODEEX *pFullscreenDisplayMode)
 {
 	LOG(3, "ResetEx\n");
-	logD3DPParams(pPresentationParameters, true);
+	bbcf_im_log_d3d_params(pPresentationParameters, true);
 	Settings::applySettingsIni(pPresentationParameters);
-	logD3DPParams(pPresentationParameters, false);
+	bbcf_im_log_d3d_params(pPresentationParameters, false);
 
 	WindowManager::GetInstance().InvalidateDeviceObjects();
 

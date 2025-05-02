@@ -134,14 +134,14 @@ void hookD3DMaths()
 	PBYTE pD3DXVec4Transform = (PBYTE)GetProcAddress(hM, "D3DXVec4Transform");
 	PBYTE pD3DXMatrixTransformation2D = (PBYTE)GetProcAddress(hM, "D3DXMatrixTransformation2D");
 
-	hookSucceeded((PBYTE)pD3DXMatrixLookAtLH, "D3DXMatrixLookAtLH");
-	hookSucceeded((PBYTE)pD3DXMatrixPerspectiveFovLH, "D3DXMatrixPerspectiveFovLH");
-	hookSucceeded((PBYTE)pD3DXMatrixMultiply, "D3DXMatrixMultiply");
-	hookSucceeded((PBYTE)pD3DXMatrixScaling, "D3DXMatrixScaling");
-	hookSucceeded((PBYTE)pD3DXMatrixTranslation, "D3DXMatrixTranslation");
-	hookSucceeded((PBYTE)pD3DXVec3TransformCoord, "D3DXVec3TransformCoord");
-	hookSucceeded((PBYTE)pD3DXVec4Transform, "D3DXVec4Transform");
-	hookSucceeded((PBYTE)pD3DXMatrixTransformation2D, "D3DXMatrixTransformation2D");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixLookAtLH, "D3DXMatrixLookAtLH");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixPerspectiveFovLH, "D3DXMatrixPerspectiveFovLH");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixMultiply, "D3DXMatrixMultiply");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixScaling, "D3DXMatrixScaling");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixTranslation, "D3DXMatrixTranslation");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXVec3TransformCoord, "D3DXVec3TransformCoord");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXVec4Transform, "D3DXVec4Transform");
+	bbcf_im_log_hook_succeeded((PBYTE)pD3DXMatrixTransformation2D, "D3DXMatrixTransformation2D");
 
 	orig_D3DXMatrixLookAtLH = (D3DXMatrixLookAtLH_t)DetourFunction(pD3DXMatrixLookAtLH, (LPBYTE)hook_D3DXMatrixLookAtLH);
 	orig_D3DXMatrixPerspectiveFovLH = (D3DXMatrixPerspectiveFovLH_t)DetourFunction(pD3DXMatrixPerspectiveFovLH, (LPBYTE)hook_D3DXMatrixPerspectiveFovLH);

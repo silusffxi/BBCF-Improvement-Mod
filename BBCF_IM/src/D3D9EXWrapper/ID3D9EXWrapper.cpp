@@ -1,8 +1,8 @@
-#include "ID3D9EXWrapper.h"
-
-#include "ID3D9EXWrapper_Device.h"
-
 #include "../logger.h"
+#include "../Core/Settings.h"
+#include "../d3d/d3d_logger.h"
+#include "ID3D9EXWrapper.h"
+#include "ID3D9EXWrapper_Device.h"
 
 Direct3D9ExWrapper::Direct3D9ExWrapper(IDirect3D9Ex **ppIDirect3D9Ex)
 {
@@ -118,7 +118,7 @@ HMONITOR APIENTRY Direct3D9ExWrapper::GetAdapterMonitor(UINT Adapter)
 
 HRESULT APIENTRY Direct3D9ExWrapper::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface)
 {
-	LOG(1, "CreateDevice\n")
+	LOG(1, "CreateDevice\n");
 
 	HRESULT hRet = Direct3D9Ex->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 
@@ -151,7 +151,7 @@ HRESULT APIENTRY Direct3D9ExWrapper::CreateDeviceEx(UINT Adapter, D3DDEVTYPE Dev
 	LOG(1, "\tAdapter: %d\n\tDeviceType: %d\n\thFocusWindow: 0x%p\n\tBehaviorFlags: 0x%p\n",
 		Adapter, DeviceType, hFocusWindow, BehaviorFlags);
 
-	logD3DPParams(pPresentationParameters, true);
+	bbcf_im_log_d3d_params(pPresentationParameters, true);
 
 	HRESULT hRet = Direct3D9Ex->CreateDeviceEx(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode, ppReturnedDeviceInterface);
 
@@ -159,7 +159,7 @@ HRESULT APIENTRY Direct3D9ExWrapper::CreateDeviceEx(UINT Adapter, D3DDEVTYPE Dev
 	{
 		LOG(1, "CreateDeviceEx created with original PresentationParameters\n");
 		Settings::applySettingsIni(pPresentationParameters);
-		logD3DPParams(pPresentationParameters, false);
+		bbcf_im_log_d3d_params(pPresentationParameters, false);
 		Direct3DDevice9ExWrapper *ret = new Direct3DDevice9ExWrapper(ppReturnedDeviceInterface, pPresentationParameters, this);
 	}
 	else

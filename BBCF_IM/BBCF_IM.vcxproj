@@ -16,6 +16,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="src\bbcf_im.cpp" />
+    <ClCompile Include="src\d3d\d3d_logger.cpp" />
     <ClCompile Include="src\globals.cpp" />
     <ClCompile Include="src\logger.cpp" />
     <ClCompile Include="src\Overlay\Window\ReplayDBPopupWindow.cpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="src\SteamApiWrapper\SteamUserWrapper.cpp" />
     <ClCompile Include="src\SteamApiWrapper\SteamUtilsWrapper.cpp" />
     <ClCompile Include="src\ui\dialogs.cpp" />
+    <ClCompile Include="src\utilities\debug_tools.cpp" />
     <ClCompile Include="src\Web\update_check.cpp" />
     <ClCompile Include="src\Core\utils.cpp" />
     <ClCompile Include="src\Web\url_downloader.cpp" />
@@ -107,6 +109,7 @@
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="src\bbcf_im.hpp" />
     <ClInclude Include="src\Core\keycodes.h" />
+    <ClInclude Include="src\d3d\d3d_logger.h" />
     <ClInclude Include="src\Game\ReplayFiles\ReplayList.h" />
     <ClInclude Include="src\globals.hpp" />
     <ClInclude Include="src\logger.h" />
@@ -197,6 +200,7 @@
     <ClInclude Include="src\SteamApiWrapper\SteamUserWrapper.h" />
     <ClInclude Include="src\SteamApiWrapper\SteamUtilsWrapper.h" />
     <ClInclude Include="src\ui\dialogs.hpp" />
+    <ClInclude Include="src\utilities\debug_tools.hpp" />
     <ClInclude Include="src\Web\update_check.h" />
     <ClInclude Include="src\Core\utils.h" />
     <ClInclude Include="src\Web\url_downloader.h" />

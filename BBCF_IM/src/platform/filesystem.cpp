@@ -26,7 +26,7 @@ namespace
 bool filesystem::create_directory(const std::string& path)
 {
 #if BBCF_IM_FILESYSTEM_USE_WINDOWS_API
-    if (PathFileExistsA(path.c_str()))
+    if (exists(path))
         return true;
 
     return CreateDirectoryA(path.c_str(), nullptr);
@@ -38,7 +38,7 @@ bool filesystem::create_directory(const std::string& path)
 bool filesystem::create_directory(const std::wstring& path)
 {
 #if BBCF_IM_FILESYSTEM_USE_WINDOWS_API
-    if (PathFileExistsW(path.c_str()))
+    if (exists(path))
         return true;
 
     return CreateDirectoryW(path.c_str(), nullptr);
@@ -54,4 +54,22 @@ std::filesystem::path filesystem::get_system_directory()
         return L"";
 
     return { sys_dir_path };
+}
+
+bool filesystem::exists(const std::string& path)
+{
+#if BBCF_IM_FILESYSTEM_USE_WINDOWS_API
+    return PathFileExistsA(path.c_str());
+#else
+    return std::filesystem::exists(path);
+#endif
+}
+
+bool filesystem::exists(const std::wstring& path)
+{
+#if BBCF_IM_FILESYSTEM_USE_WINDOWS_API
+    return PathFileExistsW(path.c_str());
+#else
+    return std::filesystem::exists(path);
+#endif    
 }

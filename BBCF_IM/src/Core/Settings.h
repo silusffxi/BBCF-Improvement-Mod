@@ -1,8 +1,7 @@
 #pragma once
-#include "D3D9EXWrapper/d3d9.h"
-
-#include <string>
 #include <map>
+#include <string>
+#include "D3D9EXWrapper/d3d9.h"
 
 struct settingsIni_t
 {
@@ -40,4 +39,3 @@ private:
 	static float readSettingsFilePropertyFloat(LPCWSTR key, LPCWSTR defaultVal, LPCWSTR filename);
 	static std::string readSettingsFilePropertyString(LPCWSTR key, LPCWSTR defaultVal, LPCWSTR filename);
 };
-

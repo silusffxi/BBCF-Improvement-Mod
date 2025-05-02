@@ -1,6 +1,7 @@
 #include "globals.hpp"
 #include "bbcf_im.hpp"
 #include "platform.h"
+#include "utilities/debug_tools.hpp"
 
 namespace
 {
@@ -8,6 +9,7 @@ namespace
     {
         DisableThreadLibraryCalls(mod);
         bbcf_im::globals::instance_module = mod;
+        BBCF_IM_DEBUG_WAIT_FOR_DEBUGGER();
         return bbcf_im::start();
     }
 

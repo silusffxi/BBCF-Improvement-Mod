@@ -1,147 +1,168 @@
+#include <cstdarg>
+#include <ctime>
+#include <filesystem>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <sstream>
+#include <utility>
+#include "platform/filesystem.hpp"
+#include "Core/Settings.h"
 #include "logger.h"
 
-#include <ctime>
-#include <sstream>
-
-bool hookSucceeded(PBYTE addr, const char* funcName)
+namespace
 {
-	if (!addr)
-	{
-		LOG(2, "FAILED to hook %s\n", funcName);
-		return false;
-	}
+    std::mutex timestamp_mutex;
 
-	LOG(2, "Successfully hooked %s at 0x%p\n", funcName, addr);
-	return true;
+    std::string get_timestamp()
+    {
+        std::lock_guard guard(timestamp_mutex);
+
+        // Format: 0000-00-00 00:00:00
+        // 19 characters.
+        time_t cur_time;
+        auto _ = time(&cur_time);
+
+        tm* info = localtime(&cur_time);  // NOLINT(concurrency-mt-unsafe)
+
+        auto timestamp_str = std::string(32, '\0');
+        const auto str_size = strftime(timestamp_str.data(), timestamp_str.size(), "%Y-%m-%d %H:%M:%S", info);
+        return timestamp_str.substr(0, str_size);
+    }
 }
 
-char* getFullDate()
+inline void bbcf_im_log_msg(const char* message, ...)
 {
-	time_t timer;
-	char* buffer = (char*)malloc(sizeof(char) * 26);
-	if (!buffer)
-	{
-		return NULL;
-	}
-
-	struct tm* tm_info;
-
-	time(&timer);
-	tm_info = localtime(&timer);
-
-	strftime(buffer, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-	return buffer;
+    va_list args;
+    va_start(args, message);
+    bbcf_im::logger::instance()->write(message, args);
+    va_end(args);
 }
 
-#ifdef ENABLE_LOGGING
-
-FILE* g_oFile;
-
-inline void logger(const char* message, ...)
+inline void bbcf_im_log_msg(const uint8_t level, const char* message, ...)
 {
-	if (!message) { return; }
+    if (level < DEBUG_LOG_LEVEL) return;
 
-	va_list args;
-	va_start(args, message);
-	vfprintf(g_oFile, message, args);
-	va_end(args);
-
-	fflush(g_oFile);
+    va_list args;
+    va_start(args, message);
+    bbcf_im::logger::instance()->write(message, args);
+    va_end(args);
 }
 
-void openLogger()
+bool bbcf_im_log_hook_succeeded(const PBYTE address, const char* func_name)
 {
-	g_oFile = fopen("DEBUG.txt", "w");
-	char* time = getFullDate();
-	LOG(1, "\n\n\n\n");
+    if (!address)
+    {
+        LOG(2, "Failed to hook '%s'!", func_name)
+        return false;
+    }
 
-	if (time)
-	{
-		LOG(1, "BBCF_FIX START - %s\n", time);
-		free(time);
-	}
-	else
-	{
-		LOG(1, "BBCF_FIX START - {Couldn't get the current time}\n");
-	}
-
-	LOG(1, "/////////////////////////////////////\n");
-	LOG(1, "/////////////////////////////////////\n\n");
+    LOG(2, "Hook set: 0x%p - %s", address, func_name)
+    return true;
 }
 
-void closeLogger()
+void bbcf_im_log_settings()
 {
-	char* time = getFullDate();
-	if (time)
-	{
-		LOG(1, "BBCF_FIX STOP - %s\n", time);
-		free(time);
-	}
-	else
-	{
-		LOG(1, "BBCF_FIX STOP - {Couldn't get the current time}\n");
-	}
+    LOG(1, "%s", "settings.ini config:\n")
 
-	if (g_oFile)
-	{
-		fclose(g_oFile);
-	}
-}
-
-void logSettingsIni()
-{
-	LOG(1, "settings.ini config:\n");
-
-	std::ostringstream oss;
-
-	//X-Macro
-#define SETTING(_type, _var, _inistring, _defaultval) \
-	oss << "\t- " << _inistring << " = " << Settings::settingsIni.##_var << "\n";
+    std::stringstream output;
+#define SETTING(type, var, ini_str, default_val) \
+    output << "    - " << (ini_str) << " = " << Settings::settingsIni.##var << "\n";
 #include "Core/settings.def"
 #undef SETTING
 
-	LOG(1, oss.str().c_str());
+    LOG(1, "%s", output.str().c_str())
 }
 
-void logD3DPParams(D3DPRESENT_PARAMETERS* pPresentationParameters, bool isOriginalSettings)
-{
-	if (isOriginalSettings)
-	{
-		LOG(1, "Original D3D PresentationParameters:\n");
-	}
-	else
-	{
-		LOG(1, "Modified D3D PresentationParameters:\n");
-	}
+using namespace bbcf_im;
 
-	LOG(1, "\t- BackBufferWidth: %u\n", pPresentationParameters->BackBufferWidth);
-	LOG(1, "\t- BackBufferHeight: %u\n", pPresentationParameters->BackBufferHeight);
-	LOG(1, "\t- BackBufferFormat: %u\n", pPresentationParameters->BackBufferFormat);
-	LOG(1, "\t- BackBufferCount: %u\n", pPresentationParameters->BackBufferCount);
-	LOG(1, "\t- SwapEffect: %u\n", pPresentationParameters->SwapEffect);
-	LOG(1, "\t- MultiSampleType: %u\n", pPresentationParameters->MultiSampleType);
-	LOG(1, "\t- MultiSampleQuality: %d\n", pPresentationParameters->MultiSampleQuality);
-	LOG(1, "\t- EnableAutoDepthStencil: %d\n", pPresentationParameters->EnableAutoDepthStencil);
-	LOG(1, "\t- FullScreen_RefreshRateInHz: %u\n", pPresentationParameters->FullScreen_RefreshRateInHz);
-	LOG(1, "\t- hDeviceWindow: 0x%p\n", pPresentationParameters->hDeviceWindow);
-	LOG(1, "\t- Windowed: %d\n", pPresentationParameters->Windowed);
-	LOG(1, "\t- Flags: 0x%p\n", pPresentationParameters->Flags);
-	LOG(1, "\t- PresentationInterval: 0x%p\n", pPresentationParameters->PresentationInterval);
-}
+std::unique_ptr<logger> logger::_instance = nullptr;
 
-#else
+std::once_flag logger::_setup_once;
 
-void openLogger()
-{
-}
-void closeLogger()
-{
-}
-void logSettingsIni()
-{
-}
-void logD3DPParams(D3DPRESENT_PARAMETERS* pPresentationParameters, bool isOriginalSettings)
+logger::logger(std::filesystem::path log_file_path, FILE* file) :
+    _log_file(file),
+    _log_file_path(std::move(log_file_path))
 {
 }
 
-#endif
+logger::~logger()
+{
+    if (_log_file != nullptr)
+    {
+        fclose(_log_file);
+        _log_file = nullptr;
+    }
+}
+
+void logger::write(const char* message, ...) const
+{
+    if (message == nullptr) return;
+
+    va_list args;
+    va_start(args, message);
+    write(message, args);
+    va_end(args);
+}
+
+void logger::write(const char* message, const va_list args) const
+{
+    if (message == nullptr) return;
+
+    auto _ = vfprintf_s(_log_file, message, args);
+    _ = fprintf_s(_log_file, "%c", '\n');
+    _ = fflush(_log_file);
+}
+
+bool logger::create(const std::filesystem::path& log_dir)
+{
+    auto setup_ok = false;
+    std::call_once(_setup_once, [&]
+    {
+        setup_ok = create_internal(log_dir);
+    });
+
+    return setup_ok;
+}
+
+void logger::shutdown()
+{
+    if (_instance != nullptr)
+    {
+        _instance.reset();
+        _instance = nullptr;
+    }
+}
+
+logger* logger::instance()
+{
+    return _instance.get();
+}
+
+bool logger::create_internal(const std::filesystem::path& log_dir)
+{
+    if (_instance != nullptr)
+    {
+        return true;
+    }
+
+    // Ensure our log directory exists before we try to write to it.
+    if (!platform::filesystem::exists(log_dir) && !platform::filesystem::create_directory(log_dir))
+    {
+        return false;
+    }
+
+    const auto log_file_path = log_dir / L"debug.log";
+
+    FILE* file_ptr = nullptr;
+    auto err_result = fopen_s(&file_ptr, log_file_path.string().c_str(), "w");
+    if (err_result != 0)
+        return false;
+
+    _instance = std::make_unique<logger>(log_file_path, file_ptr);
+    const auto start_timestamp_str = get_timestamp();
+
+    _instance->write("BBCF_FIX START - %s", start_timestamp_str.c_str());
+    _instance->write("==================================================");
+    return true;
+}

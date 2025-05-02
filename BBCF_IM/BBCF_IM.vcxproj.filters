@@ -151,6 +151,8 @@
     <ClCompile Include="src\proxies\dinput8_proxy.cpp" />
     <ClCompile Include="src\platform\filesystem.cpp" />
     <ClCompile Include="src\logger.cpp" />
+    <ClCompile Include="src\utilities\debug_tools.cpp" />
+    <ClCompile Include="src\d3d\d3d_logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
@@ -295,6 +297,8 @@
     <ClInclude Include="src\proxies\dinput8_proxy.h" />
     <ClInclude Include="src\platform\filesystem.hpp" />
     <ClInclude Include="src\logger.h" />
+    <ClInclude Include="src\utilities\debug_tools.hpp" />
+    <ClInclude Include="src\d3d\d3d_logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">

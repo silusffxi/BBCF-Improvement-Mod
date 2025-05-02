@@ -4,6 +4,7 @@
 
 #include "Core/info.h"
 #include "../logger.h"
+
 #include "Core/interfaces.h"
 #include "Overlay/Logger/ImGuiLogger.h"
 #include "Overlay/WindowManager.h"
@@ -11,6 +12,7 @@
 #include <handleapi.h>
 #include <processthreadsapi.h>
 #include <regex>
+#include "../Core/Settings.h"
 
 std::string newVersionNum = "";
 

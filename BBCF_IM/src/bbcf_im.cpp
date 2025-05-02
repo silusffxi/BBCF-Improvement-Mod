@@ -2,7 +2,6 @@
 #include <thread>
 #include "Core/crashdump.h"
 #include "Core/interfaces.h"
-#include "logger.h"
 #include "Core/Settings.h"
 #include "Hooks/hooks_detours.h"
 #include "Overlay/WindowManager.h"
@@ -12,6 +11,7 @@
 #include "ui/dialogs.hpp"
 #include "platform.h"
 #include "globals.hpp"
+#include "logger.h"
 #include "bbcf_im.hpp"
 
 using namespace bbcf_im;
@@ -23,8 +23,6 @@ namespace
     */
     bool create_directories()
     {
-        LOG(1, "create_directories\n");
-
         const auto bbcf_im_dir = globals::module_dir / L"BBCF_IM";
         if (!platform::filesystem::create_directory(bbcf_im_dir))
         {
@@ -99,18 +97,20 @@ bool bbcf_im::start()
     globals::module_path = get_module_file_path(globals::instance_module);
     globals::module_dir  = globals::module_path.parent_path();
 
-    openLogger();
-
-    LOG(1, "Starting BBCF_IM_Start thread\n");
-
     create_directories();
+
+    logger::create(globals::bbcf_im_dir);
+
+    LOG(1, "%s", "Starting bbcf_im::start thread")
+
     SetUnhandledExceptionFilter(UnhandledExFilter);
 
     if (!Settings::loadSettingsFile())
     {
         ExitProcess(0);
     }
-    logSettingsIni();
+
+    bbcf_im_log_settings();
     Settings::initSavedSettings();
 
     if (!setup_dinput8_proxy())
@@ -132,10 +132,10 @@ bool bbcf_im::start()
 
 void bbcf_im::shutdown()
 {
-    LOG(1, "BBCF_IM_Shutdown\n");
+    LOG(1, "%s", "bbcf_im::shutdown")
 
     WindowManager::GetInstance().Shutdown();
     CleanupInterfaces();
     proxies::dinput8_proxy::shutdown();
-    closeLogger();
+    logger::shutdown();
 }
