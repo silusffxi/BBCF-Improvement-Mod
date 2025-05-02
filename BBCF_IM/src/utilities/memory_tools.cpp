@@ -1,9 +1,17 @@
 #include <cstdint>
+#include <cstdio>
+#include <string>
+#include <sstream>
 #include "../globals.hpp"
 #include "../logger.h"
 #include "memory_tools.h"
 
 using namespace bbcf_im;
+
+char* bbcf_im_get_bbcf_base_address()
+{
+    return memory_tools::get_bbcf_base_address();
+}
 
 char* memory_tools::get_bbcf_base_address()
 {
@@ -30,4 +38,23 @@ char* memory_tools::get_bbcf_base_address()
 
     const auto base_ptr = static_cast<char*>(mod_info.lpBaseOfDll);
     return base_ptr;
+}
+
+std::string memory_tools::raw_memory_to_string(const uint8_t* src, const size_t length)
+{
+    std::stringstream output;
+    for (size_t idx = 0; idx < length; idx++)
+    {
+        char tmp[3] = { };
+        const auto result = sprintf_s(tmp, 3, "%02X", src[idx]);
+        if (result == -1)
+            continue;
+
+        output << tmp;
+
+        if (idx + 1 < length)
+            output << ' ';
+    }
+
+    return output.str();
 }

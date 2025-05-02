@@ -15,6 +15,8 @@
 #include "logger.h"
 #include "bbcf_im.hpp"
 
+#include "Core/utils.h"
+
 using namespace bbcf_im;
 namespace fs = std::filesystem;
 namespace

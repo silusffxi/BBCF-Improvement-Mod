@@ -2,6 +2,7 @@
 #include <fstream>
 #include "../platform.h"
 #include "../globals.hpp"
+#include "../utilities/memory_tools.h"
 #include "utils.h"
 
 char* GetBbcfBaseAdress()
@@ -25,15 +26,14 @@ void WriteToProtectedMemory(uintptr_t addressToWrite, char* valueToWrite, int by
 
 char* RawMemoryArrayToString(unsigned char* srcBuf, int length)
 {
-	static char output[2000];
-	//maybe should memset 0 the output array
-	//memset(output, 0, 2000);
-	char *ptr = &output[0];
-	int i = 0;
-	for (; i < length; i++)
-	{
-		ptr += sprintf(ptr, "%02X ", srcBuf[i]);
-	}
+	static char output[2048]     = { };
+	static char default_output[] = "";
+
+	const auto hex_str = bbcf_im::memory_tools::raw_memory_to_string(srcBuf, length);
+
+	if (memcpy_s(output, sizeof output, hex_str.data(), hex_str.size()) != 0)
+		return default_output;
+
 	return output;
 }
 
