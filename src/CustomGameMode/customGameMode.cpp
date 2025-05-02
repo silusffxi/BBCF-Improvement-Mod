@@ -23,7 +23,7 @@ void InitNormalMode()
 
 void InitSteroidMode()
 {
-	LOG(2, "InitSteroidMode\n");
+	LOG(2, "%s", "InitSteroidMode")
 	g_imGuiLogger->Log("[system] Starting Steroid Mode\n");
 
 	g_interfaces.player1.GetData()->maxHP *= steroid_hp_multiplier;
@@ -48,19 +48,19 @@ void InitSteroidMode()
 
 void InitVampireMode()
 {
-	LOG(2, "InitVampireMode\n");
+	LOG(2, "%s", "InitVampireMode")
 	g_imGuiLogger->Log("[system] Starting Vampire Mode\n");
 }
 
 void InitExVampireMode()
 {
-	LOG(2, "InitExVampireMode\n");
+	LOG(2, "%s", "InitExVampireMode")
 	g_imGuiLogger->Log("[system] Starting exVampire Mode\n");
 }
 
 void InitOnePunchMode()
 {
-	LOG(2, "InitOnePunchMode\n");
+	LOG(2, "%s", "InitOnePunchMode")
 	g_imGuiLogger->Log("[system] Starting One Punch Mode\n");
 
 	CharData& player1 = *g_interfaces.player1.GetData();
@@ -81,7 +81,7 @@ void InitOnePunchMode()
 
 void InitTwoPunchMode()
 {
-	LOG(2, "InitTwoPunchMode\n");
+	LOG(2, "%s", "InitTwoPunchMode")
 	g_imGuiLogger->Log("[system] Starting Two Punch Mode\n");
 
 	CharData& player1 = *g_interfaces.player1.GetData();
@@ -102,7 +102,7 @@ void InitTwoPunchMode()
 
 void InitFivePunchMode()
 {
-	LOG(2, "InitFivePunchMode\n");
+	LOG(2, "%s", "InitFivePunchMode")
 	g_imGuiLogger->Log("[system] Starting Five Punch Mode\n");
 
 	CharData& player1 = *g_interfaces.player1.GetData();
@@ -123,7 +123,7 @@ void InitFivePunchMode()
 
 void InitTugOfWar()
 {
-	LOG(2, "InitTugOfWarMode\n");
+	LOG(2, "%s", "InitTugOfWarMode")
 	g_imGuiLogger->Log("[system] Starting Tug of War Mode\n");
 
 	CharData& player1 = *g_interfaces.player1.GetData();
@@ -144,7 +144,7 @@ void InitTugOfWar()
 
 void InitInfiniteHeatMode()
 {
-	LOG(2, "InitInfiniteHeatMode\n");
+	LOG(2, "%s", "InitInfiniteHeatMode")
 	g_imGuiLogger->Log("[system] Starting Infinite Heat Mode\n");
 
 	g_interfaces.player1.GetData()->heatMeter = 10000;
@@ -153,7 +153,7 @@ void InitInfiniteHeatMode()
 
 std::vector<GameMode_t> CreateGameModesVector()
 {
-	LOG(2, "CreateGameModesVector\n");
+	LOG(2, "%s", "CreateGameModesVector")
 
 	std::vector<GameMode_t> gameModes =
 	{

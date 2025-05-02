@@ -12,7 +12,7 @@
 DWORD steroid_OverdriveChargeJmpBackAddr = 0;
 void __declspec(naked)steroid_OverdriveCharge()
 {
-	LOG_ASM(7, "steroid_OverdriveCharge\n");
+	LOG_ASM(7, "%s", "steroid_OverdriveCharge")
 
 	static int addedOverdriveValue = 0;
 
@@ -39,7 +39,7 @@ EXIT:
 DWORD steroid_HeatModifyJmpBackAddr = 0;
 void __declspec(naked)steroid_HeatModify()
 {
-	LOG_ASM(7, "steroid_HeatModify\n")
+	LOG_ASM(7, "%s", "steroid_HeatModify")
 
 	static int addedHeatValue = 0;
 	_asm
@@ -96,7 +96,7 @@ EXIT:
 DWORD steroid_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)steroid_HealthModify()
 {
-	LOG_ASM(7, "steroid_HealthModify\n");
+	LOG_ASM(7, "%s", "steroid_HealthModify")
 
 	static int newHP = 0;
 	static int previousHP = 0;
@@ -130,7 +130,7 @@ void __declspec(naked)steroid_HealthModify()
 DWORD vampire_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)vampire_HealthModify()
 {
-	LOG_ASM(7, "vampire_HealthModify\n");
+	LOG_ASM(7, "%s", "vampire_HealthModify")
 
 	static int newHP = 0;
 	//static int previousHP = 0;
@@ -195,7 +195,7 @@ EXIT:
 DWORD vampire_HealthDrainJmpBackAddr = 0;
 void __declspec(naked)vampire_HealthDrain()
 {
-	LOG_ASM(7, "vampire_HealthDrain\n");
+	LOG_ASM(7, "%s", "vampire_HealthDrain")
 
 	static float vampirism_timer = 0.0;
 	static int previous_real_timer = 0;
@@ -261,7 +261,7 @@ DWORD exVampire_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)exVampire_HealthModify()
 {
 	//handles the lifesteal for all chars
-	LOG_ASM(7, "exVampire_HealthModify\n");
+	LOG_ASM(7, "%s", "exVampire_HealthModify")
 
 	static int newHP = 0;
 	//static int previousHP = 0;
@@ -326,7 +326,7 @@ DWORD exVampire_HealthDrainJmpBackAddr = 0;
 void __declspec(naked)exVampire_HealthDrain()
 {
 	//handles the % hp loss per second
-	LOG_ASM(7, "exVampire_HealthDrain\n");
+	LOG_ASM(7, "%s", "exVampire_HealthDrain")
 
 	static float vampirism_timer = 0.0;
 	static int previous_real_timer = 0;
@@ -395,7 +395,7 @@ void __declspec(naked)exVampire_HealthDrain()
 DWORD onepunch_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)onepunch_HealthModify()
 {
-	LOG_ASM(7, "onepunch_HealthModify\n");
+	LOG_ASM(7, "%s", "onepunch_HealthModify")
 
 	static int newHP = 0;
 	static CharData* thisPlayerObj = 0;
@@ -434,7 +434,7 @@ EXIT:
 DWORD twopunch_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)twopunch_HealthModify()
 {
-	LOG_ASM(7, "twopunch_HealthModify\n");
+	LOG_ASM(7, "%s", "twopunch_HealthModify")
 
 	static int newHP = 0;
 	static CharData* thisPlayerObj = 0;
@@ -482,7 +482,7 @@ EXIT:
 DWORD fivepunch_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)fivepunch_HealthModify()
 {
-	LOG_ASM(7, "fivepunch_HealthModify\n");
+	LOG_ASM(7, "%s", "fivepunch_HealthModify")
 
 	static int newHP = 0;
 	static CharData* thisPlayerObj = 0;
@@ -530,7 +530,7 @@ EXIT:
 DWORD tugofwar_HealthModifyJmpBackAddr = 0;
 void __declspec(naked)tugofwar_HealthModify()
 {
-	LOG_ASM(7, "tugofwar_HealthModify\n");
+	LOG_ASM(7, "%s", "tugofwar_HealthModify")
 
 	static int newHP = 0;
 	static CharData* thisPlayerObj = 0;
@@ -599,7 +599,7 @@ EXIT:
 DWORD infiniteheat_HeatModifyJmpBackAddr = 0;
 void __declspec(naked)infiniteheat_HeatModify()
 {
-	LOG_ASM(7, "infiniteheat_HeatModify\n");
+	LOG_ASM(7, "%s", "infiniteheat_HeatModify")
 
 	__asm
 	{
@@ -612,7 +612,7 @@ void __declspec(naked)infiniteheat_HeatModify()
 DWORD training_healthModifyFixJmpBackAddr = 0;
 void __declspec(naked)training_healthModifyFix()
 {
-	LOG_ASM(7, "training_healthModifyFix\n");
+	LOG_ASM(7, "%s", "training_healthModifyFix")
 
 	__asm
 	{
@@ -626,7 +626,7 @@ void __declspec(naked)training_healthModifyFix()
 
 void placeHooks_CustomGameModes()
 {
-	LOG(2, "placeHooks_CustomGameModes\n");
+	LOG(2, "%s", "placeHooks_CustomGameModes")
 
 	steroid_OverdriveChargeJmpBackAddr = HookManager::SetHook("steroid_OverdriveCharge", "\x01\xb7\xe4\x5a\x00\x00\x8b\x87\xe4\x5a\x00\x00",
 		"xxxxxxxxxxxx", 6, steroid_OverdriveCharge, false);

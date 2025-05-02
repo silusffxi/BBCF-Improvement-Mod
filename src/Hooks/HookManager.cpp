@@ -12,7 +12,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 	/*Hooks to an adress found using a pattern*/
 	if (len > MAX_LENGTH)
 	{
-		LOG(2, "Overwritten bytes more than %d (%d)! \n", MAX_LENGTH, len);
+		LOG(2, "Overwritten bytes more than %d (%d)!", MAX_LENGTH, len)
 		return 0;
 	}
 
@@ -20,7 +20,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 	int index = GetHookStructIndex(label);
 	if (index != -1)
 	{
-		LOG(2, "%s hook already present!\n", label);
+		LOG(2, "%s hook already present!", label)
 		return hooks[index].jmpBackAddr;
 	}
 
@@ -37,7 +37,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 
 	if (!startAddress)
 	{
-		LOG(2, "%s signature scanning returned 0\n", label);
+		LOG(2, "%s signature scanning returned 0", label)
 		return 0;
 	}
 
@@ -45,7 +45,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 
 	if (!SaveOriginalBytes(index, (void*)startAddress, len))
 	{
-		LOG(2, "Saving original bytes failed.\n");
+		LOG(2, "%s", "Saving original bytes failed.")
 		return 0;
 	}
 
@@ -56,11 +56,11 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 	{
 		if (!PlaceHook((void*)startAddress, newFunc, len))
 		{
-			LOG(2, "%s hook failed.\n", label);
+			LOG(2, "%s hook failed.", label)
 			return 0;
 		}
 		hooks[index].activated = true;
-		LOG(2, "Hook set on %s\n", label);
+		LOG(2, "Hook set on %s", label)
 	}
 
 	return jmpBackAddr;
@@ -71,7 +71,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 	/*Hooks to a direct adress*/
 	if (len > MAX_LENGTH)
 	{
-		LOG(2, "Overwritten bytes more than %d (%d)! \n", MAX_LENGTH, len);
+		LOG(2, "Overwritten bytes more than %d (%d)!", MAX_LENGTH, len)
 		return 0;
 	}
 
@@ -79,7 +79,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 	int index = GetHookStructIndex(label);
 	if (index != -1)
 	{
-		LOG(2, "%s hook already present!\n", label);
+		LOG(2, "%s hook already present!", label)
 		return hooks[index].jmpBackAddr;
 	}
 
@@ -94,15 +94,15 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 
 	if (!startAddress)
 	{
-		LOG(2, "%s invalid start address provided: 0x%p\n", label, startAddress);
+		LOG(2, "%s invalid start address provided: 0x%p", label, startAddress)
 		return 0;
 	}
 
-	LOG(2, "%s found at: 0x%p\n", label, startAddress);
+	LOG(2, "%s found at: 0x%p", label, startAddress)
 
 	if (!SaveOriginalBytes(index, (void*)startAddress, len))
 	{
-		LOG(2, "Saving original bytes failed.\n");
+		LOG(2, "%s", "Saving original bytes failed.")
 		return 0;
 	}
 
@@ -113,11 +113,11 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 	{
 		if (!PlaceHook((void*)startAddress, newFunc, len))
 		{
-			LOG(2, "%s hook failed.\n", label);
+			LOG(2, "%s hook failed.", label)
 			return 0;
 		}
 		hooks[index].activated = true;
-		LOG(2, "Hook set on %s\n", label);
+		LOG(2, "Hook set on %s", label)
 	}
 
 	return jmpBackAddr;
@@ -128,7 +128,7 @@ bool HookManager::SetHook(const char* label, void* newFunc, bool activate)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook already present!\n", label);
+		LOG(2, "%s hook already present!", label)
 		return false;
 	}
 
@@ -139,11 +139,11 @@ bool HookManager::SetHook(const char* label, void* newFunc, bool activate)
 	{
 		if (!PlaceHook((void*)hooks[index].startAddress, newFunc, hooks[index].length))
 		{
-			LOG(2, "%s hook failed.\n", label);
+			LOG(2, "%s hook failed.", label)
 			return false;
 		}
 		hooks[index].activated = true;
-		LOG(2, "Hook set on %s\n", label);
+		LOG(2, "Hook set on %s", label)
 	}
 
 	return true;
@@ -180,11 +180,11 @@ bool HookManager::IsHookActivated(const char* label)
 
 bool HookManager::ActivateHook(const char* label)
 {
-	LOG(2, "Activating %s hook.\n", label);
+	LOG(2, "Activating %s hook.", label)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook not found!\n", label);
+		LOG(2, "%s hook not found!", label)
 		return false;
 	}
 
@@ -194,7 +194,7 @@ bool HookManager::ActivateHook(const char* label)
 
 	if (!PlaceHook((void*)hooks[index].startAddress, hooks[index].newFunc, hooks[index].length))
 	{
-		LOG(2, "%s hook failed.\n", label);
+		LOG(2, "%s hook failed.", label)
 		return false;
 	}
 
@@ -204,11 +204,11 @@ bool HookManager::ActivateHook(const char* label)
 
 bool HookManager::DeactivateHook(const char* label)
 {
-	LOG(2, "Deactivating %s hook.\n", label);
+	LOG(2, "Deactivating %s hook.", label)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook not found!\n", label);
+		LOG(2, "%s hook not found!", label)
 		return false;
 	}
 
@@ -217,7 +217,7 @@ bool HookManager::DeactivateHook(const char* label)
 
 	int ret = RestoreOriginalBytes(index);
 	if (!ret)
-		LOG(2, "RestoreOriginalBytes failed.\n");
+		LOG(2, "%s", "RestoreOriginalBytes failed.")
 
 	hooks[index].activated = false;
 	return ret;
@@ -228,7 +228,7 @@ JMPBACKADDR HookManager::GetJmpBackAddr(const char* label)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook not found!\n", label);
+		LOG(2, "%s hook not found!", label)
 		return 0;
 	}
 	return hooks[index].jmpBackAddr;
@@ -239,7 +239,7 @@ bool HookManager::SetJmpBackAddr(const char* label, DWORD newJmpBackAddr)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "SetJmpBackAddr: %s hook not found!\n", label);
+		LOG(2, "SetJmpBackAddr: %s hook not found!", label)
 		return false;
 	}
 
@@ -251,7 +251,7 @@ bool HookManager::SetJmpBackAddr(const char* label, DWORD newJmpBackAddr)
 
 	if (!SaveOriginalBytes(index, (void*)startAddress, len))
 	{
-		LOG(2, "Saving original bytes failed.\n");
+		LOG(2, "%s", "Saving original bytes failed.")
 		return false;
 	}
 
@@ -263,7 +263,7 @@ DWORD HookManager::GetStartAddress(const char* label)
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "SetJmpBackAddr: %s hook not found!\n", label);
+		LOG(2, "SetJmpBackAddr: %s hook not found!", label)
 		return 0;
 	}
 
@@ -276,7 +276,7 @@ JMPBACKADDR HookManager::RegisterHook(const char* label, const char* pattern, co
 	int index = GetHookStructIndex(label);
 	if (index != -1)
 	{
-		LOG(2, "%s hook already present!\n", label);
+		LOG(2, "%s hook already present!", label)
 		return hooks[index].jmpBackAddr;
 	}
 
@@ -293,11 +293,11 @@ JMPBACKADDR HookManager::RegisterHook(const char* label, const char* pattern, co
 
 	if (!startAddress)
 	{
-		LOG(2, "%s signature scanning returned 0\n", label);
+		LOG(2, "%s signature scanning returned 0", label)
 		return 0;
 	}
 
-	LOG(2, "%s found at: 0x%p\n", label, startAddress);
+	LOG(2, "%s found at: 0x%p", label, startAddress)
 
 	return startAddress;
 }
@@ -309,7 +309,7 @@ int HookManager::GetOriginalBytes(const char* label, int startIndex, int bytesTo
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook not found!\n", label);
+		LOG(2, "%s hook not found!", label)
 		return 0;
 	}
 
@@ -335,7 +335,7 @@ int HookManager::GetBytesFromAddr(const char* label, int startIndex, int bytesTo
 	int index = GetHookStructIndex(label);
 	if (index == -1)
 	{
-		LOG(2, "%s hook not found!\n", label);
+		LOG(2, "%s hook not found!", label)
 		return 0;
 	}
 

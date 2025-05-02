@@ -11,7 +11,7 @@ void __declspec(naked)GetCharObjPointers()
 {
 	static char* addr = nullptr;
 
-	LOG_ASM(2, "GetCharObjPointers\n");
+	LOG_ASM(2, "%s", "GetCharObjPointers")
 
 	__asm
 	{
@@ -39,7 +39,7 @@ void __declspec(naked)ForceBloomOn()
 	static CharData* pCharObj = nullptr;
 	static CharPaletteHandle* pCharHandle = nullptr;
 
-	LOG_ASM(7, "ForceBloomOn\n");
+	LOG_ASM(7, "%s", "ForceBloomOn")
 
 	__asm
 	{
@@ -74,7 +74,7 @@ TURN_BLOOM_ON:
 DWORD GetIsP1CPUJmpBackAddr = 0;
 void __declspec(naked)GetIsP1CPU()
 {
-	LOG_ASM(2, "GetIsP1CPU\n");
+	LOG_ASM(2, "%s", "GetIsP1CPU")
 
 	__asm
 	{
@@ -87,7 +87,7 @@ void __declspec(naked)GetIsP1CPU()
 DWORD GetGameStateCharacterSelectJmpBackAddr = 0;
 void __declspec(naked)GetGameStateCharacterSelect()
 {
-	LOG_ASM(2, "GetGameStateCharacterSelect\n");
+	LOG_ASM(2, "%s", "GetGameStateCharacterSelect")
 
 	//
 
@@ -104,7 +104,7 @@ void __declspec(naked) GetPalBaseAddresses()
 	static int counter = 0;
 	static char* palPointer = 0;
 
-	LOG_ASM(2, "GetPalBaseAddresses\n");
+	LOG_ASM(2, "%s", "GetPalBaseAddresses")
 
 	__asm
 	{
@@ -142,7 +142,7 @@ void __declspec(naked) GetPaletteIndexPointers()
 {
 	static int* pPalIndex = nullptr;
 
-	LOG_ASM(2, "GetPaletteIndexPointers\n");
+	LOG_ASM(2, "%s", "GetPaletteIndexPointers")
 
 	__asm
 	{
@@ -151,7 +151,7 @@ void __declspec(naked) GetPaletteIndexPointers()
 		mov pPalIndex, esi
 	}
 
-	LOG_ASM(2, "\t- P1 palIndex: 0x%p\n", pPalIndex);
+	LOG_ASM(2, "    - P1 palIndex: 0x%p\n", pPalIndex)
 	g_interfaces.player1.GetPalHandle().SetPointerPalIndex(pPalIndex);
 
 	__asm
@@ -160,7 +160,7 @@ void __declspec(naked) GetPaletteIndexPointers()
 		mov pPalIndex, esi
 	}
 
-	LOG_ASM(2, "\t- P2 palIndex: 0x%p\n", pPalIndex);
+	LOG_ASM(2, "    - P2 palIndex: 0x%p\n", pPalIndex)
 	g_interfaces.player2.GetPalHandle().SetPointerPalIndex(pPalIndex);
 
 	__asm

@@ -23,7 +23,7 @@
 DWORD GetGameStateTitleScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateTitleScreen()
 {
-	LOG_ASM(2, "GetGameStateTitleScreen\n");
+	LOG_ASM(2, "%s", "GetGameStateTitleScreen")
 
 	_asm
 	{
@@ -53,7 +53,7 @@ void __declspec(naked)GetGameStateTitleScreen()
 DWORD GetGameStateMenuScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateMenuScreen()
 {
-	LOG_ASM(2, "GetGameStateMenuScreen\n");
+	LOG_ASM(2, "%s", "GetGameStateMenuScreen")
 
 	_asm
 	{
@@ -85,7 +85,7 @@ void __declspec(naked)GetGameStateMenuScreen()
 DWORD GetGameStateLobbyJmpBackAddress = 0;
 void __declspec(naked)GetGameStateLobby()
 {
-	LOG_ASM(2, "GetGameStateLobby\n");
+	LOG_ASM(2, "%s", "GetGameStateLobby")
 
 	__asm pushad
 
@@ -103,7 +103,7 @@ void __declspec(naked)GetGameStateLobby()
 DWORD GetGameStateVictoryScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateVictoryScreen()
 {
-	LOG_ASM(2, "GetGameStateVictoryScreen\n");
+	LOG_ASM(2, "%s", "GetGameStateVictoryScreen")
 
 	__asm pushad
 
@@ -121,7 +121,7 @@ void __declspec(naked)GetGameStateVictoryScreen()
 DWORD GetGameStateVersusScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateVersusScreen()
 {
-	LOG_ASM(2, "GetGameStateVersusScreen\n");
+	LOG_ASM(2, "%s", "GetGameStateVersusScreen")
 
 	__asm
 	{
@@ -133,7 +133,7 @@ void __declspec(naked)GetGameStateVersusScreen()
 DWORD GetGameStateReplayMenuScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateReplayMenuScreen()
 {
-	LOG_ASM(2, "GetGameStateReplayMenuScreen\n");
+	LOG_ASM(2, "%s", "GetGameStateReplayMenuScreen")
 
 	__asm pushad
 
@@ -154,7 +154,7 @@ void __declspec(naked)PassMsgToImGui()
 {
 	static bool isWindowManagerInitialized = false;
 
-	LOG_ASM(7, "PassMsgToImGui\n");
+	LOG_ASM(7, "%s", "PassMsgToImGui")
 
 	__asm pushad
 	isWindowManagerInitialized = WindowManager::GetInstance().IsInitialized();
@@ -211,7 +211,7 @@ int PassKeyboardInputToGame()
 DWORD DenyKeyboardInputFromGameJmpBackAddr = 0;
 void __declspec(naked)DenyKeyboardInputFromGame()
 {
-	LOG_ASM(7, "DenyKeyboardInputFromGame\n");
+	LOG_ASM(7, "%s", "DenyKeyboardInputFromGame")
 
 	__asm
 	{
@@ -232,7 +232,7 @@ void __declspec(naked)PacketProcessingFunc()
 {
 	static Packet* pPacket = nullptr;
 
-	LOG_ASM(7, "PacketProcessingFunc\n");
+	LOG_ASM(7, "%s", "PacketProcessingFunc")
 
 	__asm
 	{
@@ -273,7 +273,7 @@ EXIT:
 DWORD GetPlayerAvatarBaseAddr = 0;
 void __declspec(naked)GetPlayerAvatarBaseFunc()
 {
-	LOG_ASM(2, "GetPlayerAvatarBaseFunc\n");
+	LOG_ASM(2, "%s", "GetPlayerAvatarBaseFunc")
 
 	__asm
 	{
@@ -309,7 +309,7 @@ void __declspec(naked)GetPlayerAvatarBaseFunc()
 DWORD GetMatchVariablesJmpBackAddr = 0;
 void __declspec(naked)GetMatchVariables()
 {
-	LOG_ASM(2, "GetMatchVariables\n");
+	LOG_ASM(2, "%s", "GetMatchVariables")
 
 	__asm
 	{
@@ -337,7 +337,7 @@ DWORD MatchIntroStartsPlayingJmpBackAddr = 0;
 void __declspec(naked)MatchIntroStartsPlayingFunc()
 {
 	// This function runs whenever the camera is forcibly taken control by the game
-	LOG_ASM(2, "MatchIntroStartsPlayingFunc\n");
+	LOG_ASM(2, "%s", "MatchIntroStartsPlayingFunc")
 
 	__asm pushad
 
@@ -359,7 +359,7 @@ void __declspec(naked)MatchIntroStartsPlayingFunc()
 DWORD GetStageSelectAddrJmpBackAddr = 0;
 void __declspec(naked)GetStageSelectAddr()
 {
-	LOG_ASM(2, "GetStageSelectAddr\n");
+	LOG_ASM(2, "%s", "GetStageSelectAddr")
 
 	__asm
 	{
@@ -386,7 +386,7 @@ void __declspec(naked)GetStageSelectAddr()
 DWORD GetMusicSelectAddrJmpBackAddr = 0;
 void __declspec(naked)GetMusicSelectAddr()
 {
-	LOG_ASM(2, "GetMusicSelectAddr\n");
+	LOG_ASM(2, "%s", "GetMusicSelectAddr")
 
 	__asm
 	{
@@ -404,7 +404,7 @@ void __declspec(naked)GetMusicSelectAddr()
 DWORD OverwriteStagesListJmpBackAddr = 0;
 void __declspec(naked)OverwriteStagesList()
 {
-	LOG_ASM(2, "OverwriteStagesList\n");
+	LOG_ASM(2, "%s", "OverwriteStagesList")
 
 	__asm pushad
 
@@ -412,7 +412,7 @@ void __declspec(naked)OverwriteStagesList()
 		*g_gameVals.pGameMode == GameMode_Training ||
 		*g_gameVals.pGameMode == GameMode_Versus)
 	{
-		LOG(2, "Overwriting stages\n");
+		LOG(2, "%s", "Overwriting stages")
 		memcpy(g_gameVals.stageListMemory, allStagesUnlockedMemoryBlock, ALL_STAGES_UNLOCKED_MEMORY_SIZE);
 	}
 
@@ -430,7 +430,7 @@ DWORD GetEntityListAddrJmpBackAddr = 0;
 int entityListSize = 0;
 void __declspec(naked)GetEntityListAddr()
 {
-	LOG_ASM(7, "GetEntityListAddr\n");
+	LOG_ASM(7, "%s", "GetEntityListAddr")
 
 	__asm mov [g_gameVals.pEntityList], eax
 
@@ -448,7 +448,7 @@ void __declspec(naked)GetEntityListAddr()
 DWORD GetEntityListDeleteAddrJmpBackAddr = 0;
 void __declspec(naked)GetEntityListDeleteAddr()
 {
-	LOG_ASM(7, "GetEntityListDeleteAddr\n");
+	LOG_ASM(7, "%s", "GetEntityListDeleteAddr")
 
 	_asm
 	{
@@ -461,7 +461,7 @@ void __declspec(naked)GetEntityListDeleteAddr()
 DWORD GetIsHUDHiddenJmpBackAddr = 0;
 void __declspec(naked)GetIsHUDHidden()
 {
-	LOG_ASM(2, "GetIsHUDHidden\n");
+	LOG_ASM(2, "%s", "GetIsHUDHidden")
 
 	__asm
 	{
@@ -477,7 +477,7 @@ void __declspec(naked)GetIsHUDHidden()
 DWORD GetViewAndProjMatrixesJmpBackAddr = 0;
 void __declspec(naked)GetViewAndProjMatrixes()
 {
-	LOG_ASM(7, "GetViewAndProjMatrixes\n");
+	LOG_ASM(7, "%s", "GetViewAndProjMatrixes")
 
 	__asm
 	{
@@ -501,7 +501,7 @@ DWORD GameUpdatePauseJmpBackAddr = 0;
 int restoredGameUpdatePauseAddr = 0;
 void __declspec(naked)GameUpdatePause()
 {
-	LOG_ASM(7, "GameUpdatePause\n");
+	LOG_ASM(7, "%s", "GameUpdatePause")
 
 	__asm
 	{
@@ -540,7 +540,7 @@ PAUSE_LOGIC:
 DWORD GetFrameCounterJmpBackAddr = 0;
 void __declspec(naked)GetFrameCounter()
 {
-	LOG_ASM(7, "GetFrameCounter\n");
+	LOG_ASM(7, "%s", "GetFrameCounter")
 
 	_asm
 	{
@@ -560,7 +560,7 @@ void __declspec(naked)GetFrameCounter()
 DWORD GetRoomOneJmpBackAddr = 0;
 void __declspec(naked)GetRoomOne()
 {
-	LOG_ASM(2, "GetRoomOne\n");
+	LOG_ASM(2, "%s", "GetRoomOne")
 
 	_asm
 	{
@@ -588,7 +588,7 @@ void __declspec(naked)GetRoomOne()
 DWORD GetRoomTwoJmpBackAddr = 0;
 void __declspec(naked)GetRoomTwo()
 {
-	LOG_ASM(2, "GetRoomTwo\n");
+	LOG_ASM(2, "%s", "GetRoomTwo")
 
 	_asm
 	{
@@ -619,7 +619,7 @@ void __declspec(naked)GetFFAMatchThisPlayerIndex()
 {
 	static int* addr = nullptr;
 
-	LOG_ASM(2, "GetFFAMatchThisPlayerIndex\n");
+	LOG_ASM(2, "%s", "GetFFAMatchThisPlayerIndex")
 
 	_asm
 	{
@@ -648,8 +648,8 @@ void __declspec(naked)SetDumpfileCommentString()
 {
 	static int* addr = nullptr;
 
-	LOG_ASM(2, "SetDumpfileCommentString\n");
-	static char* format_string = "\n GameMode: %d, GameScene: %d, GameSceneStatus: %d \n Improvement Mod loaded \n Version: "  MOD_VERSION_NUM;
+	LOG_ASM(2, "%s", "SetDumpfileCommentString")
+	static const char* format_string = "\n GameMode: %d, GameScene: %d, GameSceneStatus: %d \n Improvement Mod loaded \n Version: "  MOD_VERSION_NUM;
 	_asm
 	{
 		push format_string
@@ -672,7 +672,7 @@ void __declspec(naked)UploadReplayToEndpoint()
 		sub esp,20
 		pushad
 	}
-		LOG_ASM(2, "UploadReplayToEndpoint\n");
+		LOG_ASM(2, "%s", "UploadReplayToEndpoint")
 		//static char* format_string = "\n GameMode: %d, GameScene: %d, GameSceneStatus: %d \n Improvement Mod loaded \n Version: "  MOD_VERSION_NUM;
 		StartAsyncReplayUpload();
 
@@ -690,7 +690,7 @@ void __declspec(naked)DelNetworkReqWatchReplays()
 		mov eax, 1
 		jmp[DelNetworkReqWatchReplaysJmpBackAddr]
 	}
-	LOG_ASM(2, "DelNetworkReqWatchReplays\n");
+	LOG_ASM(2, "%s", "DelNetworkReqWatchReplays")
 }
 //DWORD DirectHookTestJmpBackAddr = 0;
 //void __declspec(naked)DirectHookTest() {
@@ -704,7 +704,7 @@ void __declspec(naked)DelNetworkReqWatchReplays()
 //}
 bool placeHooks_bbcf()
 {
-	LOG(2, "placeHooks_bbcf\n");
+	LOG(2, "%s", "placeHooks_bbcf")
 
 	GetGameStateTitleScreenJmpBackAddr = HookManager::SetHook("GetGameStateTitleScreen", "\xc7\x87\x0c\x01\x00\x00\x04\x00\x00\x00\x83\xc4\x1c",
 		"xxxxxxxxxxxxx", 10, GetGameStateTitleScreen);

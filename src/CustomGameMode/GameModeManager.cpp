@@ -11,7 +11,7 @@ GameModeManager::GameModeManager()
 
 void GameModeManager::InitGameMode()
 {
-	LOG(2, "InitGameMode\n");
+	LOG(2, "%s", "InitGameMode")
 
 	ResetAllHooks();
 	m_gameModes[m_activeGameMode].init_func();
@@ -20,7 +20,7 @@ void GameModeManager::InitGameMode()
 
 void GameModeManager::EndGameMode()
 {
-	LOG(2, "EndGameMode\n");
+	LOG(2, "%s", "EndGameMode")
 
 	m_activeGameMode = CustomGameMode_None;
 	ResetAllHooks();
@@ -28,7 +28,7 @@ void GameModeManager::EndGameMode()
 
 void GameModeManager::SetActiveGameMode(CustomGameMode gameMode)
 {
-	LOG(2, "SetActiveGameMode\n");
+	LOG(2, "%s", "SetActiveGameMode")
 
 	m_activeGameMode = gameMode;
 }
@@ -74,7 +74,7 @@ void GameModeManager::ActivateGameModeHooks()
 
 void GameModeManager::ResetAllHooks()
 {
-	LOG(2, "ResetAllHooks\n");
+	LOG(2, "%s", "ResetAllHooks")
 
 	for (const GameMode_t& gameMode : m_gameModes)
 	{
@@ -94,6 +94,6 @@ void GameModeManager::ResetAllHooks()
 
 	if (result)
 	{
-		LOG(2, "Original steroid_HeatModify has been reset, overwritten bytes: %d\n", result);
+		LOG(2, "Original steroid_HeatModify has been reset, overwritten bytes: %d", result)
 	}
 }

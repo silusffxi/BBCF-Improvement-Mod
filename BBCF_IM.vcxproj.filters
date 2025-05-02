@@ -303,6 +303,7 @@
     <ClInclude Include="src\d3d\d3d_logger.h" />
     <ClInclude Include="src\utilities\memory_tools.h" />
     <ClInclude Include="src\Palette\palette_data.h" />
+    <ClInclude Include="src\utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">

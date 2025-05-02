@@ -11,7 +11,7 @@ modValues_t g_modVals = {};
 
 void InitManagers()
 {
-	LOG(1, "InitManagers\n");
+	LOG(1, "%s", "InitManagers")
 
 	if (g_interfaces.pSteamNetworkingWrapper &&
 		g_interfaces.pSteamUserWrapper &&
@@ -70,7 +70,7 @@ void InitManagers()
 
 void CleanupInterfaces()
 {
-	LOG(1, "CleanupInterfaces\n");
+	LOG(1, "%s", "CleanupInterfaces")
 
 	SAFE_DELETE(g_interfaces.pNetworkManager);
 	SAFE_DELETE(g_interfaces.pPaletteManager);

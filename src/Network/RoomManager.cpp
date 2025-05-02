@@ -13,7 +13,7 @@ RoomManager::~RoomManager() {}
 
 void RoomManager::SendAnnounce()
 {
-	LOG(2, "RoomManager::SendAnnounce\n");
+	LOG(2, "%s", "RoomManager::SendAnnounce")
 
 	Packet packet = Packet(NULL, NULL, PacketType_IMID_Announce, GetThisPlayerRoomMemberIndex());
 
@@ -24,14 +24,15 @@ void RoomManager::SendAnnounce()
 
 		if (pRoomMemberEntry && !IsThisPlayer(pRoomMemberEntry->steamId))
 		{
-			m_pNetworkManager->SendPacket(&CSteamID(pRoomMemberEntry->steamId), &packet);
+            auto steam_id = CSteamID(pRoomMemberEntry->steamId);
+			m_pNetworkManager->SendPacket(&steam_id, &packet);
 		}
 	}
 }
 
 void RoomManager::SendAcknowledge(Packet* packet)
 {
-	LOG(2, "RoomManager::SendAcknowledge\n");
+	LOG(2, "%s", "RoomManager::SendAcknowledge")
 
 	IMPlayer otherPlayer = IMPlayer(packet->roomMemberIndex, packet->steamID, GetPlayerSteamName(packet->steamID));
 	AddIMPlayerToRoom(otherPlayer);
@@ -42,7 +43,7 @@ void RoomManager::SendAcknowledge(Packet* packet)
 
 void RoomManager::AcceptAcknowledge(Packet* packet)
 {
-	LOG(2, "RoomManager::AcceptAcknowledge\n");
+	LOG(2, "%s", "RoomManager::AcceptAcknowledge")
 
 	IMPlayer otherPlayer = IMPlayer(packet->roomMemberIndex, packet->steamID, GetPlayerSteamName(packet->steamID));
 	AddIMPlayerToRoom(otherPlayer);
@@ -50,7 +51,7 @@ void RoomManager::AcceptAcknowledge(Packet* packet)
 
 void RoomManager::JoinRoom(Room* pRoom)
 {
-	LOG(2, "RoomManager::JoinRoom\n");
+	LOG(2, "%s", "RoomManager::JoinRoom")
 
 	m_pRoom = pRoom;
 
@@ -65,14 +66,14 @@ void RoomManager::JoinRoom(Room* pRoom)
 
 bool RoomManager::IsRoomFunctional() const
 {
-	LOG(7, "RoomManager::IsRoomFunctional\n");
+	LOG(7, "%s", "RoomManager::IsRoomFunctional")
 
 	return m_pRoom != nullptr && m_pRoom->roomStatus == RoomStatus_Functional;
 }
 
 void RoomManager::SendPacketToSameMatchIMPlayers(Packet* packet)
 {
-	LOG(2, "RoomManager::SendPacketToSameMatchIMPlayers\n");
+	LOG(2, "%s", "RoomManager::SendPacketToSameMatchIMPlayers")
 
 	packet->roomMemberIndex = GetThisPlayerRoomMemberIndex();
 
@@ -94,7 +95,7 @@ void RoomManager::SendPacketToSameMatchIMPlayers(Packet* packet)
 }
 void RoomManager::SendPacketToSameMatchIMPlayersNonSpectator(Packet* packet)
 {
-	LOG(2, "RoomManager::SendPacketToSameMatchIMPlayers\n");
+	LOG(2, "%s", "RoomManager::SendPacketToSameMatchIMPlayers")
 
 	packet->roomMemberIndex = GetThisPlayerRoomMemberIndex();
 
@@ -116,7 +117,7 @@ void RoomManager::SendPacketToSameMatchIMPlayersNonSpectator(Packet* packet)
 }
 bool RoomManager::IsPacketFromSameRoom(Packet* packet) const
 {
-	LOG(7, "RoomManager::IsPacketFromSameRoom\n");
+	LOG(7, "%s", "RoomManager::IsPacketFromSameRoom")
 
 	if (!IsRoomFunctional())
 		return false;
@@ -126,21 +127,21 @@ bool RoomManager::IsPacketFromSameRoom(Packet* packet) const
 
 bool RoomManager::IsPacketFromSameMatchNonSpectator(Packet* packet) const
 {
-	LOG(7, "RoomManager::IsPacketFromSameMatchNonSpectator\n");
+	LOG(7, "%s", "RoomManager::IsPacketFromSameMatchNonSpectator")
 
 	return IsPacketFromSameMatch(packet) && !IsPacketFromSpectator(packet);
 }
 
 bool RoomManager::IsThisPlayerSpectator() const
 {
-	LOG(7, "RoomManager::IsThisPlayerSpectator\n");
+	LOG(7, "%s", "RoomManager::IsThisPlayerSpectator")
 
 	return GetThisPlayerRoomMemberEntry()->matchPlayerIndex > 1;
 }
 
 bool RoomManager::IsThisPlayerInMatch() const
 {
-	LOG(7, "RoomManager::IsThisPlayerInMatch\n");
+	LOG(7, "%s", "RoomManager::IsThisPlayerInMatch")
 
 	const RoomMemberEntry* thisPlayerMemberEntry = GetThisPlayerRoomMemberEntry();
 	int matchId = thisPlayerMemberEntry ? thisPlayerMemberEntry->matchId : 0;
@@ -150,14 +151,14 @@ bool RoomManager::IsThisPlayerInMatch() const
 
 void RoomManager::SetFFAThisPlayerIndex(int* pFFAThisPlayerIndex)
 {
-	LOG(7, "RoomManager::SetFFAThisPlayerIndex\n");
+	LOG(7, "%s", "RoomManager::SetFFAThisPlayerIndex")
 
 	m_pFFAThisPlayerIndex = pFFAThisPlayerIndex;
 }
 
 uint16_t RoomManager::GetThisPlayerMatchPlayerIndex() const
 {
-	LOG(7, "RoomManager::GetThisPlayerMatchPlayerIndex\n");
+	LOG(7, "%s", "RoomManager::GetThisPlayerMatchPlayerIndex")
 
 	if (m_pRoom->roomType == RoomType_FFA)
 		return *m_pFFAThisPlayerIndex;
@@ -167,7 +168,7 @@ uint16_t RoomManager::GetThisPlayerMatchPlayerIndex() const
 
 uint16_t RoomManager::GetPlayerMatchPlayerIndexByRoomMemberIndex(uint16_t index) const
 {
-	LOG(7, "RoomManager::GetPlayerMatchPlayerIndexByRoomMemberIndex\n");
+	LOG(7, "%s", "RoomManager::GetPlayerMatchPlayerIndexByRoomMemberIndex")
 
 	// Resolve playerindex via m_pFFAThisPlayerIndex if room type is FFA
 	if (m_pRoom->roomType == RoomType_FFA)
@@ -183,7 +184,7 @@ uint16_t RoomManager::GetPlayerMatchPlayerIndexByRoomMemberIndex(uint16_t index)
 
 const char* RoomManager::GetPlayerSteamName(uint64_t steamID) const
 {
-	LOG(7, "RoomManager::GetPlayerSteamName\n");
+	LOG(7, "%s", "RoomManager::GetPlayerSteamName")
 
 	return m_pSteamFriends->GetFriendPersonaName(steamID);
 }
@@ -211,7 +212,7 @@ const std::string RoomManager::GetRoomTypeName() const
 
 std::vector<IMPlayer> RoomManager::GetIMPlayersInCurrentMatch() const
 {
-	LOG(7, "RoomManager::GetIMPlayersInCurrentMatch\n");
+	LOG(7, "%s", "RoomManager::GetIMPlayersInCurrentMatch")
 
 	std::vector<IMPlayer> currentMatchIMPlayers;
 	uint32_t matchId = GetThisPlayerRoomMemberEntry()->matchId;
@@ -241,7 +242,7 @@ std::vector<IMPlayer> RoomManager::GetIMPlayersInCurrentMatch() const
 
 std::vector<IMPlayer> RoomManager::GetIMPlayersInCurrentRoom() const
 {
-	LOG(7, "RoomManager::GetIMPlayersInCurrentRoom\n");
+	LOG(7, "%s", "RoomManager::GetIMPlayersInCurrentRoom")
 
 	std::vector<IMPlayer> currentRoomIMPlayers;
 

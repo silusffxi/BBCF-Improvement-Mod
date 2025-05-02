@@ -13,7 +13,7 @@ OnlinePaletteManager::OnlinePaletteManager(PaletteManager* pPaletteManager, Char
 
 void OnlinePaletteManager::SendPalettePackets()
 {
-	LOG(2, "OnlinePaletteManager::SendPalettePackets\n");
+	LOG(2, "%s", "OnlinePaletteManager::SendPalettePackets")
 
 	if (m_pRoomManager->IsThisPlayerSpectator())
 		return;
@@ -27,7 +27,7 @@ void OnlinePaletteManager::SendPalettePackets()
 
 void OnlinePaletteManager::RecvPaletteDataPacket(Packet* packet)
 {
-	LOG(2, "OnlinePaletteManager::RecvPaletteDataPacket\n");
+	LOG(2, "%s", "OnlinePaletteManager::RecvPaletteDataPacket")
 
 	uint16_t matchPlayerIndex = m_pRoomManager->GetPlayerMatchPlayerIndexByRoomMemberIndex(packet->roomMemberIndex);
 	CharPaletteHandle& charPalHandle = GetPlayerCharPaletteHandle(matchPlayerIndex);
@@ -47,7 +47,7 @@ void OnlinePaletteManager::RecvPaletteDataPacket(Packet* packet)
 
 void OnlinePaletteManager::RecvPaletteInfoPacket(Packet* packet)
 {
-	LOG(2, "OnlinePaletteManager::RecvPaletteInfoPacket\n");
+	LOG(2, "%s", "OnlinePaletteManager::RecvPaletteInfoPacket")
 
 	uint16_t matchPlayerIndex = m_pRoomManager->GetPlayerMatchPlayerIndexByRoomMemberIndex(packet->roomMemberIndex);
 	CharPaletteHandle& charPalHandle = GetPlayerCharPaletteHandle(matchPlayerIndex);
@@ -65,7 +65,7 @@ void OnlinePaletteManager::RecvPaletteInfoPacket(Packet* packet)
 
 void OnlinePaletteManager::ProcessSavedPalettePackets()
 {
-	LOG(2, "OnlinePaletteManager::ProcessSavedPalettePackets\n");
+	LOG(2, "%s", "OnlinePaletteManager::ProcessSavedPalettePackets")
 
 	if (!m_pRoomManager->IsRoomFunctional())
 		return;
@@ -76,7 +76,7 @@ void OnlinePaletteManager::ProcessSavedPalettePackets()
 
 void OnlinePaletteManager::ClearSavedPalettePacketQueues()
 {
-	LOG(2, "OnlinePaletteManager::ClearSavedPalettePacketQueues\n");
+	LOG(2, "%s", "OnlinePaletteManager::ClearSavedPalettePacketQueues")
 
 	m_unprocessedPaletteInfos = {};
 	m_unprocessedPaletteFiles = {};
@@ -84,7 +84,7 @@ void OnlinePaletteManager::ClearSavedPalettePacketQueues()
 
 void OnlinePaletteManager::OnMatchInit()
 {
-	LOG(2, "OnlinePaletteManager::OnMatchInit\n");
+	LOG(2, "%s", "OnlinePaletteManager::OnMatchInit")
 
 	SendPalettePackets();
 	ProcessSavedPalettePackets();
@@ -92,7 +92,7 @@ void OnlinePaletteManager::OnMatchInit()
 
 void OnlinePaletteManager::SendPaletteInfoPacket(CharPaletteHandle& charPalHandle, uint16_t roomMemberIndex)
 {
-	LOG(2, "OnlinePaletteManager::SendPaletteInfoPacket\n");
+	LOG(2, "%s", "OnlinePaletteManager::SendPaletteInfoPacket")
 
 	Packet packet = Packet(
 		(char*)&m_pPaletteManager->GetCurrentPalInfo(charPalHandle),
@@ -106,7 +106,7 @@ void OnlinePaletteManager::SendPaletteInfoPacket(CharPaletteHandle& charPalHandl
 
 void OnlinePaletteManager::SendPaletteDataPackets(CharPaletteHandle& charPalHandle, uint16_t roomMemberIndex)
 {
-	LOG(2, "OnlinePaletteManager::SendPaletteDataPackets\n");
+	LOG(2, "%s", "OnlinePaletteManager::SendPaletteDataPackets")
 
 	for (int palFileIndex = 0; palFileIndex < IMPL_PALETTE_FILES_COUNT; palFileIndex++)
 	{
@@ -126,7 +126,7 @@ void OnlinePaletteManager::SendPaletteDataPackets(CharPaletteHandle& charPalHand
 
 void OnlinePaletteManager::ProcessSavedPaletteInfoPackets()
 {
-	LOG(2, "OnlinePaletteManager::ProcessSavedPaletteInfoPackets\n");
+	LOG(2, "%s", "OnlinePaletteManager::ProcessSavedPaletteInfoPackets")
 
 	for (int i = 0; i < m_unprocessedPaletteInfos.size(); i++)
 	{
@@ -142,7 +142,7 @@ void OnlinePaletteManager::ProcessSavedPaletteInfoPackets()
 
 void OnlinePaletteManager::ProcessSavedPaletteDataPackets()
 {
-	LOG(2, "OnlinePaletteManager::ProcessSavedPaletteDataPackets\n");
+	LOG(2, "%s", "OnlinePaletteManager::ProcessSavedPaletteDataPackets")
 
 	for (int i = 0; i < m_unprocessedPaletteFiles.size(); i++)
 	{

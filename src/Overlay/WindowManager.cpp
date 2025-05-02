@@ -40,23 +40,23 @@ bool WindowManager::Initialize(void *hwnd, IDirect3DDevice9 *device)
 		return true;
 	}
 
-	LOG(2, "WindowManager::Initialize\n");
+	LOG(2, "%s", "WindowManager::Initialize")
 
 	if (!hwnd)
 	{
-		LOG(2, "HWND not found!\n");
+		LOG(2, "%s", "HWND not found!")
 		return false;
 	}
 	if (!device)
 	{
-		LOG(2, "Direct3DDevice9 not found!\n");
+		LOG(2, "%s", "Direct3DDevice9 not found!")
 		return false;
 	}
 
 	m_initialized = ImGui_ImplDX9_Init(hwnd, device);
 	if (!m_initialized)
 	{
-		LOG(2, "ImGui_ImplDX9_Init failed!\n");
+		LOG(2, "%s", "ImGui_ImplDX9_Init failed!")
 		return false;
 	}
 
@@ -160,7 +160,7 @@ bool WindowManager::Initialize(void *hwnd, IDirect3DDevice9 *device)
 
 	m_pLogger->Log("[system] Finished initialization\n");
 	m_pLogger->LogSeparator();
-	LOG(2, "Initialize end\n");
+	LOG(2, "%s", "Initialize end")
 
 	return true;
 }
@@ -172,7 +172,7 @@ void WindowManager::Shutdown()
 		return;
 	}
 
-	LOG(2, "WindowManager::Shutdown\n");
+	LOG(2, "%s", "WindowManager::Shutdown")
 
 	SAFE_DELETE(m_windowContainer);
 	delete m_instance;
@@ -187,7 +187,7 @@ void WindowManager::InvalidateDeviceObjects()
 		return;
 	}
 
-	LOG(2, "WindowManager::InvalidateDeviceObjects\n");
+	LOG(2, "%s", "WindowManager::InvalidateDeviceObjects")
 	ImGui_ImplDX9_InvalidateDeviceObjects();
 }
 
@@ -198,7 +198,7 @@ void WindowManager::CreateDeviceObjects()
 		return;
 	}
 
-	LOG(2, "WindowManager::CreateDeviceObjects\n");
+	LOG(2, "%s", "WindowManager::CreateDeviceObjects")
 	ImGui_ImplDX9_CreateDeviceObjects();
 }
 
@@ -220,7 +220,7 @@ void WindowManager::Render()
 	}
 
 
-	LOG(7, "WindowManager::Render\n");
+	LOG(7, "%s", "WindowManager::Render")
 
 	HandleButtons();
 

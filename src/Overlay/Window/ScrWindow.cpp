@@ -1468,7 +1468,7 @@ void set_local_replay(char* replayname, int fname_size_max) {
 void restore_replays(int fname_size_max) {
     int bbcf_base = (int)GetBbcfBaseAdress();
     uintptr_t replay_file_template = bbcf_base + 0x4AA66C;
-    char* original_name = "replay%02d.dat\0\0replay_list.dat";
+    char original_name[] = "replay%02d.dat\0\0replay_list.dat";
 
     WriteToProtectedMemory(replay_file_template, original_name, fname_size_max);
 

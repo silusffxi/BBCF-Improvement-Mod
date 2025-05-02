@@ -291,7 +291,7 @@ void PaletteEditorWindow::InitializeSelectedCharacters()
 
 void PaletteEditorWindow::CharacterSelection()
 {
-	LOG(7, "PaletteEditorWindow CharacterSelection\n");
+	LOG(7, "%s", "PaletteEditorWindow CharacterSelection")
 
 	if (ImGui::Button("Select character"))
 	{
@@ -330,7 +330,7 @@ void PaletteEditorWindow::CharacterSelection()
 
 void PaletteEditorWindow::PaletteSelection()
 {
-	LOG(7, "PaletteEditorWindow PaletteSelection\n");
+	LOG(7, "%s", "PaletteEditorWindow PaletteSelection")
 
 	if (ImGui::Button("Select palette  "))
 	{
@@ -345,7 +345,7 @@ void PaletteEditorWindow::PaletteSelection()
 
 void PaletteEditorWindow::FileSelection()
 {
-	LOG(7, "PaletteEditorWindow FileSelection\n");
+	LOG(7, "%s", "PaletteEditorWindow FileSelection")
 
 	if (ImGui::Button("Select file     "))
 	{
@@ -374,7 +374,7 @@ void PaletteEditorWindow::FileSelection()
 
 void PaletteEditorWindow::EditingModesSelection()
 {
-	LOG(7, "PaletteEditorWindow EditingModesSelection\n");
+	LOG(7, "%s", "PaletteEditorWindow EditingModesSelection")
 
 	ImGui::Separator();
 	if (ImGui::Checkbox("Show transparency values", &m_showAlpha))
@@ -420,7 +420,7 @@ void PaletteEditorWindow::EditingModesSelection()
 
 void PaletteEditorWindow::ShowPaletteBoxes()
 {
-	LOG(7, "PaletteEditorWindow ShowPaletteBoxes\n");
+	LOG(7, "%s", "PaletteEditorWindow ShowPaletteBoxes")
 
 	ImGui::VerticalSpacing(10);
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 2));

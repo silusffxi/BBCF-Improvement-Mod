@@ -5,7 +5,7 @@
 
 bool InitSteamApiWrappers()
 {
-	LOG(1, "InitSteamApiWrappers\n");
+	LOG(1, "%s", "InitSteamApiWrappers")
 
 	if (g_tempVals.ppSteamMatchmaking &&
 		!g_interfaces.pSteamMatchmakingWrapper)

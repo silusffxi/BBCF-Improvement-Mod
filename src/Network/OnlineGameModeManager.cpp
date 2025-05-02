@@ -10,7 +10,7 @@ OnlineGameModeManager::OnlineGameModeManager(GameModeManager* pGameModeManager, 
 
 void OnlineGameModeManager::SendGameModePacket()
 {
-	LOG(2, "OnlineGameModeManager::SendGameModePacket\n");
+	LOG(2, "%s", "OnlineGameModeManager::SendGameModePacket")
 
 	if (m_pRoomManager->IsThisPlayerSpectator())
 		return;
@@ -25,7 +25,7 @@ void OnlineGameModeManager::SendGameModePacket()
 
 void OnlineGameModeManager::RecvGameModePacket(Packet* packet)
 {
-	LOG(2, "OnlineGameModeManager::RecvGameModePacket\n");
+	LOG(2, "%s", "OnlineGameModeManager::RecvGameModePacket")
 
 	uint16_t matchPlayerIndex = m_pRoomManager->GetPlayerMatchPlayerIndexByRoomMemberIndex(packet->roomMemberIndex);
 	CustomGameMode selectedGameMode = (CustomGameMode)packet->data[0];
@@ -36,7 +36,7 @@ void OnlineGameModeManager::RecvGameModePacket(Packet* packet)
 
 void OnlineGameModeManager::SetThisPlayerGameMode(CustomGameMode gameMode)
 {
-	LOG(2, "OnlineGameModeManager::SetThisPlayerGameMode\n");
+	LOG(2, "%s", "OnlineGameModeManager::SetThisPlayerGameMode")
 
 	if (m_pRoomManager->IsThisPlayerSpectator())
 		return;
@@ -57,7 +57,7 @@ const CustomGameMode OnlineGameModeManager::GetSettledGameModeChoice() const
 
 void OnlineGameModeManager::ClearPlayerGameModeChoices()
 {
-	LOG(2, "OnlineGameModeManager::ClearPlayerGameModeChoices\n");
+	LOG(2, "%s", "OnlineGameModeManager::ClearPlayerGameModeChoices")
 
 	m_player1GameModeChoice = CustomGameMode_None;
 	m_player2GameModeChoice = CustomGameMode_None;
@@ -65,7 +65,7 @@ void OnlineGameModeManager::ClearPlayerGameModeChoices()
 
 void OnlineGameModeManager::OnMatchInit()
 {
-	LOG(2, "OnlineGameModeManager::OnMatchInit\n");
+	LOG(2, "%s", "OnlineGameModeManager::OnMatchInit")
 
 	// Set if both players settled on the same gamemode
 

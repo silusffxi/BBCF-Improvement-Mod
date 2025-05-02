@@ -6,68 +6,68 @@ ID3DXSpriteWrapper::ID3DXSpriteWrapper(LPD3DXSPRITE** ppSprite)
 {
 	m_D3DXSprite = **ppSprite;
 	**ppSprite = this;
-	LOG(7, "ID3DXSpriteWrapper Created: (0x%p)\n", ppSprite);
+	LOG(7, "ID3DXSpriteWrapper Created: (0x%p)", ppSprite)
 }
 
 // IUnknown
 HRESULT ID3DXSpriteWrapper::QueryInterface(REFIID iid, LPVOID *ppv)
 {
-	LOG(7, "Sprite QueryInterface\n");
+	LOG(7, "%s", "Sprite QueryInterface")
 	return m_D3DXSprite->QueryInterface(iid, ppv);
 }
 
 ULONG ID3DXSpriteWrapper::AddRef()
 {
-	LOG(7, "Sprite AddRef\n");
+	LOG(7, "%s", "Sprite AddRef")
 	return m_D3DXSprite->AddRef();
 }
 
 ULONG ID3DXSpriteWrapper::Release()
 {
-	LOG(7, "Sprite Release\n");
+	LOG(7, "%s", "Sprite Release")
 	return m_D3DXSprite->Release();
 }
 
 // ID3DXSprite
 HRESULT ID3DXSpriteWrapper::GetDevice(LPDIRECT3DDEVICE9* ppDevice)
 {
-	LOG(7, "Sprite GetDevice\n");
+	LOG(7, "%s", "Sprite GetDevice")
 	return m_D3DXSprite->GetDevice(ppDevice);
 }
 
 HRESULT ID3DXSpriteWrapper::GetTransform(D3DXMATRIX *pTransform)
 {
-	LOG(7, "Sprite GetTransform\n");
+	LOG(7, "%s", "Sprite GetTransform")
 	return m_D3DXSprite->GetTransform(pTransform);
 }
 
 HRESULT ID3DXSpriteWrapper::SetTransform(CONST D3DXMATRIX *pTransform)
 {
-	LOG(7, "Sprite SetTransform\n");
+	LOG(7, "%s", "Sprite SetTransform")
 	return m_D3DXSprite->SetTransform(pTransform);
 }
 
 HRESULT ID3DXSpriteWrapper::SetWorldViewRH(CONST D3DXMATRIX *pWorld, CONST D3DXMATRIX *pView)
 {
-	LOG(7, "Sprite SetWorldViewRH\n");
+	LOG(7, "%s", "Sprite SetWorldViewRH")
 	return m_D3DXSprite->SetWorldViewRH(pWorld, pView);
 }
 
 HRESULT ID3DXSpriteWrapper::SetWorldViewLH(CONST D3DXMATRIX *pWorld, CONST D3DXMATRIX *pView)
 {
-	LOG(7, "Sprite SetWorldViewLH\n");
+	LOG(7, "%s", "Sprite SetWorldViewLH")
 	return m_D3DXSprite->SetWorldViewLH(pWorld, pView);
 }
 
 HRESULT ID3DXSpriteWrapper::Begin(DWORD Flags)
 {
-	LOG(7, "Sprite Begin\n");
+	LOG(7, "%s", "Sprite Begin")
 	return m_D3DXSprite->Begin(Flags);
 }
 
 HRESULT ID3DXSpriteWrapper::Draw(LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect, CONST D3DXVECTOR3 *pCenter, CONST D3DXVECTOR3 *pPosition, D3DCOLOR Color)
 {
-	LOG(7, "Sprite Draw (pos:) %.2f %.2f %.2f (pcent:) %.2f %.2f\n", pPosition->x, pPosition->y, pPosition->z, pCenter->x, pCenter->y);
+	LOG(7, "Sprite Draw (pos:) %.2f %.2f %.2f (pcent:) %.2f %.2f", pPosition->x, pPosition->y, pPosition->z, pCenter->x, pCenter->y)
 
 	if (!Settings::savedSettings.isDuelFieldSprite && Settings::settingsIni.viewport != 1)
 	{
@@ -84,23 +84,23 @@ HRESULT ID3DXSpriteWrapper::Draw(LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRe
 
 HRESULT ID3DXSpriteWrapper::Flush()
 {
-	LOG(7, "Sprite Flush\n");
+	LOG(7, "%s", "Sprite Flush")
 	return m_D3DXSprite->Flush();
 }
 
 HRESULT ID3DXSpriteWrapper::End()
 {
-	LOG(7, "Sprite End\n");
+	LOG(7, "%s", "Sprite End")
 	return m_D3DXSprite->End();
 }
 
 HRESULT ID3DXSpriteWrapper::OnLostDevice()
 {
-	LOG(7, "Sprite OnLostDevice\n");
+	LOG(7, "%s", "Sprite OnLostDevice")
 	return m_D3DXSprite->OnLostDevice();
 }
 HRESULT ID3DXSpriteWrapper::OnResetDevice()
 {
-	LOG(7, "Sprite OnResetDevice\n");
+	LOG(7, "%s", "Sprite OnResetDevice")
 	return m_D3DXSprite->OnResetDevice();
 }

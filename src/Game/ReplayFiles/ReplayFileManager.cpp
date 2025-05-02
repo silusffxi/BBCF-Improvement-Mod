@@ -17,9 +17,12 @@
 //#define REPLAY_FILE_SIZE 65536
 //#define REPLAY_FOLDER_PATH "./Save/Replay/"
 //#define REPLAY_ARCHIVE_FOLDER_PATH "./Save/Replay/archive/"
-    
 
-
+namespace
+{
+    char replay_file_name_template[]     = "replay%02d.dat";
+    char tmp_replay_file_name_template[] = "tmp/rp%02d.dat";
+}
 
 void replace_all(
     std::string& s,
@@ -186,7 +189,7 @@ void ReplayFileManager::load_replay_list_default() {
     ReplayList* replay_list = (ReplayList*)(base + 0xAA9808);
     char* replay_file_template = base + 0x4AA66C;
 
-    WriteToProtectedMemory((uintptr_t)replay_file_template, "replay%02d.dat", 15);
+    WriteToProtectedMemory((uintptr_t)replay_file_template, replay_file_name_template, 15);
     template_modified = false;
 
     std::ifstream f("Save/replay_list.dat", std::ios::binary);
@@ -233,7 +236,7 @@ void ReplayFileManager::load_replay_list_default_repair() {
     ReplayList* replay_list = (ReplayList*)(base + 0xAA9808);
     char* replay_file_template = base + 0x4AA66C;
 
-    WriteToProtectedMemory((uintptr_t)replay_file_template, "replay%02d.dat", 15);
+    WriteToProtectedMemory((uintptr_t)replay_file_template, replay_file_name_template, 15);
     template_modified = false;
         
     int n = 0;
@@ -286,7 +289,7 @@ void ReplayFileManager::load_replay_list_from_archive(int page) {
     char* replay_file_template = base + 0x4AA66C;
 
     CreateDirectory(L"./Save/Replay/tmp/", NULL); // the 100 visible files will be copied into a new dir
-    WriteToProtectedMemory((uintptr_t)replay_file_template, "tmp/rp%02d.dat", 15);
+    WriteToProtectedMemory((uintptr_t)replay_file_template, tmp_replay_file_name_template, 15);
     template_modified = true;
 
     int n = page_filenames.size();
@@ -419,7 +422,7 @@ void ReplayFileManager::load_replay_list_from_db(int page, int character, std::s
     char* replay_file_template = base + 0x4AA66C;
 
     CreateDirectory(L"./Save/Replay/tmp/", NULL); // the 100 visible files will be copied into a new dir
-    WriteToProtectedMemory((uintptr_t)replay_file_template, "tmp/rp%02d.dat", 15);
+    WriteToProtectedMemory((uintptr_t)replay_file_template, tmp_replay_file_name_template, 15);
     template_modified = true;
 
     int n = page_filenames.size();
@@ -429,7 +432,8 @@ void ReplayFileManager::load_replay_list_from_db(int page, int character, std::s
         new_name = "Save/Replay/tmp/rp" + std::string(2 - min(2, new_name.length()), '0') + new_name + ".dat";
             
         ReplayFile* rp = 0;
-        DownloadUrlBinary(L"http://" + std::wstring(serverAddress) + L"/uploads/" + utf8_to_utf16(page_filenames[j]), (void**)&rp);
+        std::wstring url_binary = L"http://" + std::wstring(serverAddress) + L"/uploads/" + utf8_to_utf16(page_filenames[j]);
+        DownloadUrlBinary(url_binary, (void**)&rp);
 
         std::ofstream file(new_name, std::fstream::binary);
         file.write((char*)rp, sizeof(*rp));

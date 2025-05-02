@@ -203,6 +203,7 @@
     <ClInclude Include="src\SteamApiWrapper\SteamUserWrapper.h" />
     <ClInclude Include="src\SteamApiWrapper\SteamUtilsWrapper.h" />
     <ClInclude Include="src\ui\dialogs.hpp" />
+    <ClInclude Include="src\utilities.h" />
     <ClInclude Include="src\utilities\debug_tools.hpp" />
     <ClInclude Include="src\utilities\memory_tools.h" />
     <ClInclude Include="src\Web\update_check.h" />
@@ -279,7 +280,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <PreprocessToFile>false</PreprocessToFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -307,7 +308,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <AssemblerOutput>NoListing</AssemblerOutput>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

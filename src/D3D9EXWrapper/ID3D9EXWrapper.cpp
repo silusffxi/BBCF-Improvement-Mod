@@ -6,7 +6,7 @@
 
 Direct3D9ExWrapper::Direct3D9ExWrapper(IDirect3D9Ex **ppIDirect3D9Ex)
 {
-	LOG(1, "cDirect3D9ExWrapper\n");
+	LOG(1, "%s", "cDirect3D9ExWrapper")
 
 	Direct3D9Ex = *ppIDirect3D9Ex;
 	*ppIDirect3D9Ex = this;
@@ -118,7 +118,7 @@ HMONITOR APIENTRY Direct3D9ExWrapper::GetAdapterMonitor(UINT Adapter)
 
 HRESULT APIENTRY Direct3D9ExWrapper::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface)
 {
-	LOG(1, "CreateDevice\n");
+	LOG(1, "%s", "CreateDevice")
 
 	HRESULT hRet = Direct3D9Ex->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 
@@ -147,7 +147,7 @@ HRESULT APIENTRY Direct3D9ExWrapper::GetAdapterDisplayModeEx(UINT Adapter, D3DDI
 
 HRESULT APIENTRY Direct3D9ExWrapper::CreateDeviceEx(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, D3DDISPLAYMODEEX* pFullscreenDisplayMode, IDirect3DDevice9Ex** ppReturnedDeviceInterface)
 {
-	LOG(1, "CreateDeviceEx:\n");
+	LOG(1, "%s", "CreateDeviceEx:")
 	LOG(1, "\tAdapter: %d\n\tDeviceType: %d\n\thFocusWindow: 0x%p\n\tBehaviorFlags: 0x%p\n",
 		Adapter, DeviceType, hFocusWindow, BehaviorFlags);
 
@@ -157,14 +157,14 @@ HRESULT APIENTRY Direct3D9ExWrapper::CreateDeviceEx(UINT Adapter, D3DDEVTYPE Dev
 
 	if (SUCCEEDED(hRet))
 	{
-		LOG(1, "CreateDeviceEx created with original PresentationParameters\n");
+		LOG(1, "%s", "CreateDeviceEx created with original PresentationParameters")
 		Settings::applySettingsIni(pPresentationParameters);
 		bbcf_im_log_d3d_params(pPresentationParameters, false);
 		Direct3DDevice9ExWrapper *ret = new Direct3DDevice9ExWrapper(ppReturnedDeviceInterface, pPresentationParameters, this);
 	}
 	else
 	{
-		LOG(1, "CreateDeviceEx failed to be created with original PresentationParameters\n");
+		LOG(1, "%s", "CreateDeviceEx failed to be created with original PresentationParameters")
 	}
 
 	return hRet;

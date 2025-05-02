@@ -3,21 +3,6 @@
 
 #define BLOOM_PALETTE_INDEX 21
 
-namespace
-{
-    char* palFileNames[TOTAL_PALETTE_FILES] =
-    {
-        "Character",
-        "Effect01",
-        "Effect02",
-        "Effect03",
-        "Effect04",
-        "Effect05",
-        "Effect06",
-        "Effect07"
-    };
-}
-
 char* CharPaletteHandle::GetPalFileAddr(const char* base, int palIndex, int fileID)
 {
 	//dereferencing the multi-level pointer:

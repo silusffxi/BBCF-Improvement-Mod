@@ -18,18 +18,18 @@ NetworkManager::~NetworkManager()
 
 bool NetworkManager::SendPacket(CSteamID* steamID, Packet* packet)
 {
-	LOG(2, "NetworkManager::SendPacket\n");
+	LOG(2, "%s", "NetworkManager::SendPacket")
 
 	packet->steamID = m_steamID.ConvertToUint64();
 
-	LOG(2, "\tSending packet:\n");
-	LOG(2, "\tversion: %s\n", RawMemoryArrayToString((unsigned char*)&packet->version, sizeof(packet->version)));
-	LOG(2, "\tpacketType: %s\n", RawMemoryArrayToString((unsigned char*)&packet->packetType, sizeof(packet->packetType)));
-	LOG(2, "\tpart: %s\n", RawMemoryArrayToString((unsigned char*)&packet->part, sizeof(packet->part)));
-	LOG(2, "\tpacketSize: %s\n", RawMemoryArrayToString((unsigned char*)&packet->packetSize, sizeof(packet->packetSize)));
-	LOG(2, "\troomPlayerIndex: %s\n", RawMemoryArrayToString((unsigned char*)&packet->roomMemberIndex, sizeof(packet->roomMemberIndex)));
-	LOG(2, "\tsteamID: %s\n", RawMemoryArrayToString((unsigned char*)&packet->steamID, sizeof(packet->steamID)));
-	LOG(2, "\tdataSize: %s\n", RawMemoryArrayToString((unsigned char*)&packet->dataSize, sizeof(packet->dataSize)));
+	LOG(2, "%s", "    Sending packet:")
+	LOG(2, "    version: %s", RawMemoryArrayToString((unsigned char*)&packet->version, sizeof(packet->version)))
+	LOG(2, "    packetType: %s", RawMemoryArrayToString((unsigned char*)&packet->packetType, sizeof(packet->packetType)))
+	LOG(2, "    part: %s", RawMemoryArrayToString((unsigned char*)&packet->part, sizeof(packet->part)))
+	LOG(2, "    packetSize: %s", RawMemoryArrayToString((unsigned char*)&packet->packetSize, sizeof(packet->packetSize)))
+	LOG(2, "    roomPlayerIndex: %s", RawMemoryArrayToString((unsigned char*)&packet->roomMemberIndex, sizeof(packet->roomMemberIndex)))
+	LOG(2, "    steamID: %s", RawMemoryArrayToString((unsigned char*)&packet->steamID, sizeof(packet->steamID)))
+	LOG(2, "    dataSize: %s", RawMemoryArrayToString((unsigned char*)&packet->dataSize, sizeof(packet->dataSize)))
 	//LOG(2, "\tdata: %s\n", RawMemoryArrayToString((unsigned char*)&packet->data, sizeof(packet->data)));
 
 	EP2PSend sendType = k_EP2PSendUnreliable;
@@ -39,12 +39,12 @@ bool NetworkManager::SendPacket(CSteamID* steamID, Packet* packet)
 
 void NetworkManager::RecvPacket(Packet* packet)
 {
-	LOG(7, "NetworkManager::RecvPacket\n");
+	LOG(7, "%s", "NetworkManager::RecvPacket")
 
 	if (!g_interfaces.pRoomManager->IsPacketFromSameRoom(packet))
 	{
-		LOG(2, "[error] Packet received from not a room member. RoomPlayerIndex: %d, SteamID: %llu\n",
-			packet->roomMemberIndex, packet->steamID);
+		LOG(2, "[error] Packet received from not a room member. RoomPlayerIndex: %d, SteamID: %llu",
+			packet->roomMemberIndex, packet->steamID)
 
 		return;
 	}
@@ -83,7 +83,7 @@ void NetworkManager::RecvPacket(Packet* packet)
 
 	case PacketType_UploadReplayEnabled_Broadcast:
 		//this packet will signal if either p1 or p2 in the match does not want to have the replay uploaded. Spectators won't send these broadcasts.
-		LOG(2, "RECEIVED PACKET PacketType_UploadReplayEnabled_Broadcast\n");
+		LOG(2, "%s", "RECEIVED PACKET PacketType_UploadReplayEnabled_Broadcast")
 		int allowUpload;
 		memcpy(&allowUpload, packet->data, packet->dataSize);
 		g_imGuiLogger->Log("Received PacketType_UploadReplayEnabled_Broadcast. \n\tdata: '%d'\n\t steamid: '%d'\n",
@@ -97,7 +97,7 @@ void NetworkManager::RecvPacket(Packet* packet)
 		break;
 
 	default:
-		LOG(2, "Unknown packet type received: %d\n", packet->packetType);
+		LOG(2, "Unknown packet type received: %d", packet->packetType)
 		g_imGuiLogger->Log("[error] Unknown packet type received (%d)\n", packet->packetType);
 	}
 }

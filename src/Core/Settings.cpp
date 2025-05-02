@@ -139,19 +139,19 @@ bool Settings::loadSettingsFile()
 
 void Settings::initSavedSettings()
 {
-	LOG(7, "initSavedSettings\n");
+	LOG(7, "%s", "initSavedSettings")
 
 	switch (settingsIni.viewport)
 	{
 	case 2:
-		LOG(7, " - case 2\n");
+		LOG(7, "%s", " - case 2")
 		savedSettings.newSourceRect.right = settingsIni.renderwidth;
 		savedSettings.newSourceRect.bottom = settingsIni.renderheight;
 		savedSettings.newViewport.Width = settingsIni.renderwidth;;
 		savedSettings.newViewport.Height = settingsIni.renderheight;
 		break;
 	case 3:
-		LOG(7, " - case 3\n");
+		LOG(7, "%s", " - case 3")
 		savedSettings.newSourceRect.right = 1280;
 		savedSettings.newSourceRect.bottom = 768;
 		savedSettings.newViewport.Width = 1280;
@@ -159,7 +159,7 @@ void Settings::initSavedSettings()
 		break;
 	case 1:
 	default:
-		LOG(7, " - case 1, default\n");
+		LOG(7, "%s", " - case 1, default")
 		//in this case the value is set in Direct3DDevice9ExWrapper::CreateRenderTargetEx!
 		break;
 	}
@@ -192,7 +192,7 @@ int Settings::changeSetting(std::string setting_name, std::string new_value) {
 
 	
 	if (!(inputFile.is_open() && tempFile.is_open())) {
-		LOG(2, "[error] Settings::changeSetting: Unable to open the file.");
+		LOG(2, "%s", "[error] Settings::changeSetting: Unable to open the file.")
 		return 1;
 	}
 	else{
@@ -218,17 +218,17 @@ int Settings::changeSetting(std::string setting_name, std::string new_value) {
 
 		if (remove(filename.c_str()) != 0) {
 			//perror("Error deleting original file");
-			LOG(2, "[error] Settings::changeSetting:Error deleting original file");
+			LOG(2, "%s", "[error] Settings::changeSetting:Error deleting original file")
 			return 1;
 		}
 
 		if (rename(tempfilename.c_str(), filename.c_str()) != 0) {
 			//perror("Error renaming temporary file");
-			LOG(2, "[error]  Settings::changeSetting: Error renaming temporary file");
-			return 1;
+			LOG(2, "%s", "[error]  Settings::changeSetting: Error renaming temporary file")
+		    return 1;
 		}
 
-		LOG(2, "Settings::changeSetting: File updated successfully.");
+		LOG(2, "%s", "Settings::changeSetting: File updated successfully.")
 		std::cout << "File updated successfully." << std::endl;
 	}
 	

@@ -13,7 +13,7 @@ void MatchState::OnMatchInit()
 		return;
 	}
 
-	LOG(2, "MatchState::OnMatchInit\n");
+	LOG(2, "%s", "MatchState::OnMatchInit")
 
 	g_interfaces.pPaletteManager->LoadPaletteSettingsFile();
 	g_interfaces.pPaletteManager->OnMatchInit(g_interfaces.player1, g_interfaces.player2);
@@ -59,7 +59,7 @@ void MatchState::OnMatchInit()
 
 void MatchState::OnMatchRematch()
 {
-	LOG(2, "MatchState::OnMatchRematch\n");
+	LOG(2, "%s", "MatchState::OnMatchRematch")
 
 	g_interfaces.pPaletteManager->OnMatchRematch(
 		g_interfaces.player1,
@@ -71,7 +71,7 @@ void MatchState::OnMatchRematch()
 
 void MatchState::OnMatchEnd()
 {
-	LOG(2, "MatchState::OnMatchEnd\n");
+	LOG(2, "%s", "MatchState::OnMatchEnd")
 
 	g_interfaces.pGameModeManager->EndGameMode();
 
@@ -90,7 +90,7 @@ void MatchState::OnMatchEnd()
 
 void MatchState::OnUpdate()
 {
-	LOG(7, "MatchState::OnUpdate\n");
+	LOG(7, "%s", "MatchState::OnUpdate")
 
 	g_interfaces.pPaletteManager->OnUpdate(
 		g_interfaces.player1.GetPalHandle(),

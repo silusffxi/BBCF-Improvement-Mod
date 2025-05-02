@@ -27,7 +27,7 @@ CreateWindowExW_t orig_CreateWindowExW;
 
 HRESULT __stdcall hook_Direct3DCreate9Ex(UINT sdkVers, IDirect3D9Ex** pD3DEx)
 {
-	LOG(1, "Direct3DCreate9EX pD3DEx: 0x%p\n", pD3DEx);
+	LOG(1, "Direct3DCreate9EX pD3DEx: 0x%p", pD3DEx)
 	HRESULT retval = orig_Direct3DCreate9Ex(sdkVers, pD3DEx); // real one
 
 	Direct3D9ExWrapper* ret = new Direct3D9ExWrapper(&*pD3DEx);
@@ -38,7 +38,7 @@ HRESULT APIENTRY hook_D3DXCreateEffect(LPDIRECT3DDEVICE9 pDevice, LPCVOID pSrcDa
 	CONST D3DXMACRO* pDefines, LPD3DXINCLUDE pInclude, DWORD Flags, LPD3DXEFFECTPOOL pPool, LPD3DXEFFECT* ppEffect,
 	LPD3DXBUFFER* ppCompilationErrors)
 {
-	LOG(7, "D3DXCreateEffect\n");
+	LOG(7, "%s", "D3DXCreateEffect")
 	HRESULT hR = orig_D3DXCreateEffect(pDevice, pSrcData, SrcDataLen, pDefines, pInclude, Flags, pPool, ppEffect, ppCompilationErrors);
 	if (SUCCEEDED(hR))
 	{
@@ -50,7 +50,7 @@ HRESULT APIENTRY hook_D3DXCreateEffect(LPDIRECT3DDEVICE9 pDevice, LPCVOID pSrcDa
 
 HRESULT WINAPI hook_D3DXCreateSprite(LPDIRECT3DDEVICE9 pDevice, LPD3DXSPRITE* ppSprite)
 {
-	LOG(7, "D3DXCreateSprite\n");
+	LOG(7, "%s", "D3DXCreateSprite")
 	HRESULT hR = orig_D3DXCreateSprite(pDevice, ppSprite);
 	if (SUCCEEDED(hR))
 	{
@@ -62,7 +62,7 @@ HRESULT WINAPI hook_D3DXCreateSprite(LPDIRECT3DDEVICE9 pDevice, LPD3DXSPRITE* pp
 DWORD SteamMatchmakingFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamMatchmaking()
 {
-	LOG_ASM(2, "GetSteamMatchmaking\n");
+	LOG_ASM(2, "%s", "GetSteamMatchmaking")
 
 	__asm
 	{
@@ -81,7 +81,7 @@ void __declspec(naked)GetSteamMatchmaking()
 DWORD SteamNetworkingFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamNetworking()
 {
-	LOG_ASM(2, "GetSteamNetworking\n");
+	LOG_ASM(2, "%s", "GetSteamNetworking")
 
 	__asm
 	{
@@ -100,7 +100,7 @@ void __declspec(naked)GetSteamNetworking()
 DWORD SteamUserFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamUser()
 {
-	LOG_ASM(2, "GetSteamUser\n");
+	LOG_ASM(2, "%s", "GetSteamUser")
 
 	__asm
 	{
@@ -119,7 +119,7 @@ void __declspec(naked)GetSteamUser()
 DWORD SteamFriendsFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamFriends()
 {
-	LOG_ASM(2, "GetSteamFriends\n");
+	LOG_ASM(2, "%s", "GetSteamFriends")
 
 	__asm
 	{
@@ -138,7 +138,7 @@ void __declspec(naked)GetSteamFriends()
 DWORD SteamUtilsFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamUtils()
 {
-	LOG_ASM(2, "GetSteamUtils\n");
+	LOG_ASM(2, "%s", "GetSteamUtils")
 
 	__asm
 	{
@@ -157,7 +157,7 @@ void __declspec(naked)GetSteamUtils()
 DWORD SteamUserStatsFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamUserStats()
 {
-	LOG_ASM(2, "GetSteamUserStats\n");
+	LOG_ASM(2, "%s", "GetSteamUserStats")
 
 	__asm
 	{
@@ -175,7 +175,7 @@ void __declspec(naked)GetSteamUserStats()
 
 bool WINAPI hook_SteamAPI_Init()
 {
-	LOG(1, "SteamAPI_Init\n");
+	LOG(1, "%s", "SteamAPI_Init")
 
 	bool ret = orig_SteamAPI_Init();
 
@@ -197,7 +197,7 @@ bool WINAPI hook_SteamAPI_Init()
 HWND WINAPI hook_CreateWindowExW(DWORD dwExStyle, LPCWSTR lpClassName, LPCWSTR lpWindowName,
 	DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
-	LOG(7, "CreateWindowExW\n");
+	LOG(7, "%s", "CreateWindowExW")
 	static int counter = 1;
 	HWND hWnd = orig_CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
 	if (SUCCEEDED(hWnd))
@@ -215,7 +215,7 @@ HWND WINAPI hook_CreateWindowExW(DWORD dwExStyle, LPCWSTR lpClassName, LPCWSTR l
 
 bool placeHooks_detours()
 {
-	LOG(1, "placeHooks_detours\n");
+	LOG(1, "%s", "placeHooks_detours")
 
 	HMODULE hM_d3d9 = GetModuleHandleA("d3d9.dll");
 	HMODULE hM_d3dx9_43 = GetModuleHandleA("d3dx9_43.dll");

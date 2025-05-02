@@ -24,7 +24,7 @@ void ReplayUploadManager::OnMatchEnd() {
 void ReplayUploadManager::SendReplayUploadEnabledBroadcastPacket()
 {
 	//this should be run on match init
-	LOG(2, "ReplayUploadManager::SendReplayUploadEnabledCheckPacket\n");
+	LOG(2, "%s", "ReplayUploadManager::SendReplayUploadEnabledCheckPacket")
 
 	uint16_t thisPlayerMatchPlayerIndex = m_pRoomManager->GetThisPlayerMatchPlayerIndex();
 	void* data_src = &g_modVals.uploadReplayData;

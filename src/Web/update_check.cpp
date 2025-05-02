@@ -35,7 +35,7 @@ void CheckUpdate()
 	if (strcmp(data.c_str(), "") == 0)
 	{
 		g_imGuiLogger->Log("[error] Update check failed. No data downloaded.\n");
-		LOG(2, "Update check failed.No data downloaded.\n");
+		LOG(2, "%s", "Update check failed.No data downloaded.")
 		return;
 	}
 

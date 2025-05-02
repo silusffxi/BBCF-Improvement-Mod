@@ -21,9 +21,9 @@ std::mutex       dinput8_proxy::_setup_mutex;
 HRESULT dinput8_proxy::create(HINSTANCE instance, DWORD version, const IID& unique_id,
     LPVOID* receiver, LPUNKNOWN pUnkOuter)
 {
-    LOG(1, "DirectInput8Create\n");
+    LOG(1, "%s", "DirectInput8Create")
     const auto result = orig_direct_input_create(instance, version, unique_id, receiver, pUnkOuter);
-    LOG(1, "DirectInput8Create result: %d\n", result);
+    LOG(1, "DirectInput8Create result: %d", result)
 
     return result;
 }

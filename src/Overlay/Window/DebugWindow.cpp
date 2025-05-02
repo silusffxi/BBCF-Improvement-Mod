@@ -295,7 +295,8 @@ void DebugWindow::DrawGameValuesSection()
 				GGPOSessionCallbacks* callbacks_ptr = new GGPOSessionCallbacks;
 				initialize_ggpo_callbacks_struct(callbacks_ptr);
 				//needs to be initialized with something else as the first argument, need to try and run the "maybe_session_init_idk"(base+383750) function instead of this one raw
-				ggpo_start_session((unsigned char**)addr, callbacks_ptr, "BBCF", 2, 2); // if run by itself the game freezes, doesnt crash, so prob is just waiting for the rest to be defined?
+                char ggpo_session_name[] = "BBCF";
+				ggpo_start_session((unsigned char**)addr, callbacks_ptr, ggpo_session_name, 2, 2); // if run by itself the game freezes, doesnt crash, so prob is just waiting for the rest to be defined?
 				//ggpo_start_session((unsigned char**)addr, callbacks_ptr, "BBCF", 0, 2);
 				//maybe_session_init_idk((void*)(base_addr + 0x65bd08));
 				//need another one

@@ -55,7 +55,7 @@ const char* implTemplates[]
 
 PaletteManager::PaletteManager()
 {
-	LOG(2, "PaletteManager::PaletteManager\n");
+	LOG(2, "%s", "PaletteManager::PaletteManager")
 
 	CreatePaletteFolders();
 	//CreatePaletteSlotsFile();
@@ -67,7 +67,7 @@ PaletteManager::~PaletteManager()
 
 void PaletteManager::CreatePaletteFolders()
 {
-	LOG(2, "CreatePaletteFolders\n");
+	LOG(2, "%s", "CreatePaletteFolders")
 
 	CreateDirectory(L"BBCF_IM\\Download", NULL);
 	CreateDirectory(L"BBCF_IM\\Palettes", NULL);
@@ -81,7 +81,7 @@ void PaletteManager::CreatePaletteFolders()
 
 void PaletteManager::InitCustomPaletteVector()
 {
-	LOG(2, "InitCustomPaletteVector\n");
+	LOG(2, "%s", "InitCustomPaletteVector")
 
 	m_customPalettes.clear();
 	m_customPalettes.resize(getCharactersCount());
@@ -98,7 +98,7 @@ void PaletteManager::LoadPalettesFromFolder()
 {
 	InitCustomPaletteVector();
 
-	LOG(2, "LoadPaletteFiles\n");
+	LOG(2, "%s", "LoadPaletteFiles")
 	g_imGuiLogger->Log("[system] Loading local custom palettes...\n");
 
 	for (int i = 0; i < getCharactersCount(); i++)
@@ -124,7 +124,7 @@ void PaletteManager::InitOnlinePalsIndexVector()
 
 void PaletteManager::ApplyDefaultCustomPalette(CharIndex charIndex, CharPaletteHandle & charPalHandle)
 {
-	LOG(2, "ApplyDefaultCustomPalette\n");
+	LOG(2, "%s", "ApplyDefaultCustomPalette")
 
 	if (charIndex > getCharactersCount())
 		return;
@@ -236,8 +236,8 @@ void PaletteManager::LoadPalettesIntoVector(CharIndex charIndex, std::wstring& w
 		fullPath.pop_back(); // Delete "*" at the end
 		fullPath += fileName;
 
-		LOG(2, "\tFILE: %s", fileName.c_str());
-		LOG(2, "\t\tFull path: %s\n", fullPath.c_str());
+		LOG(2, "    FILE: %s", fileName.c_str())
+		LOG(2, "        Full path: %s", fullPath.c_str())
 
 		if (fileName.find(IMPL_FILE_EXTENSION) != std::string::npos)
 		{
@@ -263,7 +263,7 @@ void PaletteManager::LoadImplFile(const std::string& fullPath, const std::string
 
 	if (!utils_ReadFile(fullPath.c_str(), &fileContents, sizeof(fileContents), true))
 	{
-		LOG(2, "\tCouldn't open %s!\n", strerror(errno));
+		LOG(2, "    Couldn't open %s!", strerror(errno))
 		g_imGuiLogger->Log("[error] Unable to open '%s' : %s\n", fileName.c_str(), strerror(errno));
 		return;
 	}
@@ -271,28 +271,28 @@ void PaletteManager::LoadImplFile(const std::string& fullPath, const std::string
 	// Check for errors
 	if (strncmp(fileContents.header.fileSig, IMPL_FILESIG, sizeof(fileContents.header.fileSig)) != 0)
 	{
-		LOG(2, "ERROR, unrecognized file format!\n");
+		LOG(2, "%s", "ERROR, unrecognized file format!")
 		g_imGuiLogger->Log("[error] '%s' unrecognized file format!\n", fileName.c_str());
 		return;
 	}
 
 	if (fileContents.header.dataLen != sizeof(IMPL_data_t))
 	{
-		LOG(2, "ERROR, data size mismatch!\n");
+		LOG(2, "%s", "ERROR, data size mismatch!")
 		g_imGuiLogger->Log("[error] '%s' data size mismatch!\n", fileName.c_str());
 		return;
 	}
 
 	if (isCharacterIndexOutOfBound(fileContents.header.charIndex))
 	{
-		LOG(2, "ERROR, '%s' has invalid character index in the header\n", fileName.c_str());
+		LOG(2, "ERROR, '%s' has invalid character index in the header", fileName.c_str())
 		g_imGuiLogger->Log("[error] '%s' has invalid character index in the header\n", fileName.c_str());
 	}
 	else if (charIndex != fileContents.header.charIndex)
 	{
-		LOG(2, "ERROR, '%s' belongs to character %s, but is placed in folder %s\n",
+		LOG(2, "ERROR, '%s' belongs to character %s, but is placed in folder %s",
 			fileName.c_str(), getCharacterNameByIndexA(fileContents.header.charIndex).c_str(),
-			getCharacterNameByIndexA(charIndex).c_str());
+			getCharacterNameByIndexA(charIndex).c_str())
 
 		g_imGuiLogger->Log("[error] '%s' belongs to character '%s', but is placed in folder '%s'\n",
 			fileName.c_str(), getCharacterNameByIndexA(fileContents.header.charIndex).c_str(),
@@ -315,7 +315,7 @@ void PaletteManager::LoadHplFile(const std::string& fullPath, const std::string&
 
 		if (palIndex < 0)
 		{
-			LOG(2, "ERROR, '%s' has no custom character palette to match with!\n", fileName.c_str());
+			LOG(2, "ERROR, '%s' has no custom character palette to match with!", fileName.c_str())
 			g_imGuiLogger->Log("[error] '%s' has no custom character palette to match with! Create a character palette named '%s' to load this bloom file on!\n",
 				fileName.c_str(), (palName + ".hpl").c_str());
 			return;
@@ -336,7 +336,7 @@ void PaletteManager::LoadHplFile(const std::string& fullPath, const std::string&
 
 	if (!utils_ReadFile(fullPath.c_str(), &fileContents, sizeof(fileContents), true))
 	{
-		LOG(2, "\tCouldn't open %s!\n", strerror(errno));
+		LOG(2, "    Couldn't open %s!", strerror(errno))
 		g_imGuiLogger->Log("[error] Unable to open '%s' : %s\n", fileName.c_str(), strerror(errno));
 		return;
 	}
@@ -399,7 +399,7 @@ void PaletteManager::LoadPaletteSettingsFile()
 {
 	InitPaletteSlotsVector();
 
-	LOG(2, "LoadPaletteSettingsFile\n");
+	LOG(2, "%s", "LoadPaletteSettingsFile")
 
 	TCHAR pathBuf[MAX_PATH];
 	GetModuleFileName(NULL, pathBuf, MAX_PATH);
@@ -410,7 +410,7 @@ void PaletteManager::LoadPaletteSettingsFile()
 
 	if (!PathFileExists(wFullPath.c_str()))
 	{
-		LOG(2, "\t'palettes.ini' file was not found!\n");
+		LOG(2, "%s", "    'palettes.ini' file was not found!")
 		g_imGuiLogger->Log("[error] 'palettes.ini' file was not found!\n");
 		return;
 	}
@@ -445,7 +445,7 @@ void PaletteManager::LoadPaletteSettingsFile()
 
 void PaletteManager::InitPaletteSlotsVector()
 {
-	LOG(2, "InitPaletteSlotsVector\n");
+	LOG(2, "%s", "InitPaletteSlotsVector")
 
 	m_paletteSlots.clear();
 	m_paletteSlots.resize(getCharactersCount());
@@ -461,18 +461,18 @@ void PaletteManager::InitPaletteSlotsVector()
 
 bool PaletteManager::PushImplFileIntoVector(IMPL_t & filledPal)
 {
-	LOG(7, "PushImplFileIntoVector\n");
+	LOG(7, "%s", "PushImplFileIntoVector")
 	return PushImplFileIntoVector((CharIndex)filledPal.header.charIndex, filledPal.palData);
 }
 
 bool PaletteManager::PushImplFileIntoVector(CharIndex charIndex, IMPL_data_t & filledPalData)
 {
-	LOG(7, "PushImplFileIntoVector <overload>\n");
+	LOG(7, "%s", "PushImplFileIntoVector <overload>")
 
 	if (charIndex > getCharactersCount())
 	{
 		g_imGuiLogger->Log("[error] Custom palette couldn't be loaded: CharIndex out of bound.\n");
-		LOG(2, "ERROR, CharIndex out of bound\n");
+		LOG(2, "%s", "ERROR, CharIndex out of bound")
 		return false;
 	}
 
@@ -500,7 +500,7 @@ bool PaletteManager::PushImplFileIntoVector(CharIndex charIndex, IMPL_data_t & f
 
 bool PaletteManager::WritePaletteToFile(CharIndex charIndex, IMPL_data_t *filledPalData)
 {
-	LOG(2, "WritePaletteToFile\n");
+	LOG(2, "%s", "WritePaletteToFile")
 
 	std::string path = std::string("BBCF_IM\\Palettes\\") + getCharacterNameByIndexA(charIndex) + "\\" + filledPalData->palInfo.palName + IMPL_FILE_EXTENSION;
 
@@ -513,7 +513,7 @@ bool PaletteManager::WritePaletteToFile(CharIndex charIndex, IMPL_data_t *filled
 
 	if (!utils_WriteFile(path.c_str(), &IMPL_file, sizeof(IMPL_t), true))
 	{
-		LOG(2, "\tCouldn't open %s!\n", strerror(errno));
+		LOG(2, "    Couldn't open %s!", strerror(errno))
 		g_imGuiLogger->Log("[error] Unable to open '%s' : %s\n", path.c_str(), strerror(errno));
 		return false;
 	}
@@ -523,7 +523,7 @@ bool PaletteManager::WritePaletteToFile(CharIndex charIndex, IMPL_data_t *filled
 
 void PaletteManager::LoadAllPalettes()
 {
-	LOG(2, "LoadAllPalettes\n");
+	LOG(2, "%s", "LoadAllPalettes")
 
 	LoadPalettesFromFolder();
 	LoadPaletteSettingsFile();
@@ -534,7 +534,7 @@ void PaletteManager::LoadAllPalettes()
 
 void PaletteManager::ReloadAllPalettes()
 {
-	LOG(2, "ReloadAllPalettes\n");
+	LOG(2, "%s", "ReloadAllPalettes")
 	g_imGuiLogger->LogSeparator();
 	g_imGuiLogger->Log("[system] Reloading custom palettes...\n");
 
@@ -570,7 +570,7 @@ void PaletteManager::OverwriteIMPLDataPalName(std::string fileName, IMPL_data_t 
 // ret == -3, default palette or no name given
 int PaletteManager::FindCustomPalIndex(CharIndex charIndex, const char * palNameToFind)
 {
-	LOG(2, "FindCustomPalIndex\n");
+	LOG(2, "%s", "FindCustomPalIndex")
 
 	if (charIndex > getCharactersCount())
 		return -2;
