@@ -1,6 +1,5 @@
 #pragma once
-
-#include "d3d9.h"
+#include "../d3d/d3d.h"
 
 interface Direct3D9ExWrapper : public IDirect3D9Ex
 {

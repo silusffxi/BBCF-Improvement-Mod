@@ -1,3 +1,4 @@
+#include "../d3d/d3d.h"
 #include "../logger.h"
 #include "../Core/Settings.h"
 #include "../d3d/d3d_logger.h"

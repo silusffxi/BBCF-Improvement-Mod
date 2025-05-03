@@ -1,5 +1,6 @@
 #include "../logger.h"
 #include "../Core/Settings.h"
+#include "../d3d/d3d.h"
 #include "ID3DXWrapper_Effect.h"
 
 ID3DXEffectWrapper::ID3DXEffectWrapper(LPD3DXEFFECT** ppEffect)

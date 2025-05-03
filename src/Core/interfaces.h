@@ -1,8 +1,6 @@
 #pragma once
-
+#include "../d3d/d3d.h"
 #include "CustomGameMode/GameModeManager.h"
-#include "D3D9EXWrapper/d3d9.h"
-#include "D3D9EXWrapper/ID3D9EXWrapper_Device.h"
 #include "Game/Player.h"
 #include "Game/Room/Room.h"
 #include "Network/NetworkManager.h"

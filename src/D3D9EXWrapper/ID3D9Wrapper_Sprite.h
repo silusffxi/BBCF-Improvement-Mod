@@ -1,5 +1,5 @@
 #pragma once
-#include "d3d9.h"
+#include "../d3d/d3d.h"
 
 interface ID3DXSpriteWrapper : public ID3DXSprite
 {

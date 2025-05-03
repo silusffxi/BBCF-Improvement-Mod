@@ -29,7 +29,6 @@
 
 void ScrWindow::Draw()
 {
-    
     static bool random_seeded = false;
     if (!random_seeded){
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -39,6 +38,7 @@ void ScrWindow::Draw()
     {
         ImGui::ShowDemoWindow(&m_showDemoWindow);
     }
+
     DrawGenericOptionsSection();
     DrawStatesSection();
     DrawPlaybackSection();
@@ -47,9 +47,6 @@ void ScrWindow::Draw()
 //#ifdef _DEBUG
     DrawReplayRewind();
 //#endif // !DEBUG
-
-    
-    
     DrawReplayTakeover();
     DrawRoomSection();
     DrawInputBufferButton();
@@ -205,6 +202,7 @@ void ScrWindow::swap_character_coordinates() {
     p2->position_y = posy1;
     p2->facingLeft = !p2->facingLeft;
 }
+
 std::string interpret_frame_invuln_enum(FrameInvuln value) {
     switch (value) {
     case FrameInvuln::None:

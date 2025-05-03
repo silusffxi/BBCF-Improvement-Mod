@@ -1,6 +1,5 @@
+#include "../d3d/d3d.h"
 #include "D3DXMath.h"
-
-#include "d3d9.h"
 
 #include "../logger.h"
 

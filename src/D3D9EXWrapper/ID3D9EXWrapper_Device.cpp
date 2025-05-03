@@ -2,17 +2,17 @@
 
 #include "Core/interfaces.h"
 #include "../logger.h"
-#include "../d3d/d3d_logger.h"
+#include "../Core/interfaces.h"
 #include "../Core/Settings.h"
-#include "Game/MatchState.h"
-#include "Hooks/hooks_bbcf.h"
-#include "Hooks/hooks_customGameModes.h"
-#include "Hooks/hooks_palette.h"
-#include "Overlay/WindowManager.h"
-
-#include <steam_api.h>
-
-#pragma comment(lib, "steam_api.lib")
+#include "../Game/MatchState.h"
+#include "../Hooks/hooks_bbcf.h"
+#include "../Hooks/hooks_customGameModes.h"
+#include "../Hooks/hooks_palette.h"
+#include "../Overlay/WindowManager.h"
+#include "../d3d/d3d_logger.h"
+#include "../d3d/d3d.h"
+#include "../steam/steam_api.h"
+#include "ID3D9EXWrapper_Device.h"
 
 Direct3DDevice9ExWrapper::Direct3DDevice9ExWrapper(IDirect3DDevice9Ex **ppReturnedDeviceInterface, D3DPRESENT_PARAMETERS *pPresentParam, IDirect3D9Ex *pIDirect3D9Ex)
 {
@@ -29,8 +29,6 @@ Direct3DDevice9ExWrapper::Direct3DDevice9ExWrapper(IDirect3DDevice9Ex **ppReturn
 	placeHooks_palette();
 	placeHooks_CustomGameModes();
 }
-
-Direct3DDevice9ExWrapper::~Direct3DDevice9ExWrapper() {}
 
 HRESULT APIENTRY Direct3DDevice9ExWrapper::QueryInterface(const IID &riid, void **ppvObj)
 {

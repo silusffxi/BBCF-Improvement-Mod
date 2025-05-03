@@ -1,4 +1,6 @@
+#include <atomic>
 #include <filesystem>
+#include <mutex>
 #include <thread>
 #include "Core/crashdump.h"
 #include "Core/interfaces.h"
@@ -15,12 +17,14 @@
 #include "logger.h"
 #include "bbcf_im.hpp"
 
-#include "Core/utils.h"
-
 using namespace bbcf_im;
 namespace fs = std::filesystem;
 namespace
 {
+    std::atomic_bool    bbcf_im_started = false;
+    std::mutex          bbcf_im_start_mutex;
+    
+
     /**
     *@brief Creates directories required by the DLL.
     */
@@ -92,6 +96,10 @@ namespace
 
 bool bbcf_im::start()
 {
+    if (bbcf_im_started) return bbcf_im_started;
+    std::lock_guard guard(bbcf_im_start_mutex);
+    if (bbcf_im_started) return bbcf_im_started;
+
     globals::host_process_id = GetCurrentProcessId();
 
     globals::host_process_path = get_host_process_path();
@@ -132,15 +140,18 @@ bool bbcf_im::start()
 
     g_interfaces.pPaletteManager = new PaletteManager();
 
-    return true;
+    return bbcf_im_started = true;
 }
 
 void bbcf_im::shutdown()
 {
+    if (!bbcf_im_started) return;
+
     LOG(1, "%s", "bbcf_im::shutdown")
 
     WindowManager::GetInstance().Shutdown();
     CleanupInterfaces();
     proxies::dinput8_proxy::shutdown();
     logger::shutdown();
+    bbcf_im_started = false;
 }

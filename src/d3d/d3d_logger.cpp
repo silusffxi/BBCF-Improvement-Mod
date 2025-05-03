@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include "../logger.h"
-#include "../D3D9EXWrapper/d3d9.h"
+#include "../d3d/d3d.h"
 #include "d3d_logger.h"
 
 namespace
