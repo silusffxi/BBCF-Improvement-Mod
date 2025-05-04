@@ -157,6 +157,8 @@
     <ClCompile Include="src\Palette\palette_data.cpp" />
     <ClCompile Include="src\d3d\d3d.cpp" />
     <ClCompile Include="src\steam\steam_api.cpp" />
+    <ClCompile Include="src\utilities\crash_handler.cpp" />
+    <ClCompile Include="src\utilities\string_tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\D3D9EXWrapper\ID3D9EXWrapper.h">
@@ -307,6 +309,8 @@
     <ClInclude Include="src\utilities.h" />
     <ClInclude Include="src\d3d\d3d.h" />
     <ClInclude Include="src\steam\steam_api.h" />
+    <ClInclude Include="src\utilities\crash_handler.h" />
+    <ClInclude Include="src\utilities\string_tools.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">

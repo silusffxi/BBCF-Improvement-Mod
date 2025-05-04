@@ -94,8 +94,10 @@
     <ClCompile Include="src\SteamApiWrapper\SteamUtilsWrapper.cpp" />
     <ClCompile Include="src\steam\steam_api.cpp" />
     <ClCompile Include="src\ui\dialogs.cpp" />
+    <ClCompile Include="src\utilities\crash_handler.cpp" />
     <ClCompile Include="src\utilities\debug_tools.cpp" />
     <ClCompile Include="src\utilities\memory_tools.cpp" />
+    <ClCompile Include="src\utilities\string_tools.cpp" />
     <ClCompile Include="src\Web\update_check.cpp" />
     <ClCompile Include="src\Core\utils.cpp" />
     <ClCompile Include="src\Web\url_downloader.cpp" />
@@ -207,8 +209,10 @@
     <ClInclude Include="src\steam\steam_api.h" />
     <ClInclude Include="src\ui\dialogs.hpp" />
     <ClInclude Include="src\utilities.h" />
+    <ClInclude Include="src\utilities\crash_handler.h" />
     <ClInclude Include="src\utilities\debug_tools.hpp" />
     <ClInclude Include="src\utilities\memory_tools.h" />
+    <ClInclude Include="src\utilities\string_tools.h" />
     <ClInclude Include="src\Web\update_check.h" />
     <ClInclude Include="src\Core\utils.h" />
     <ClInclude Include="src\Web\url_downloader.h" />

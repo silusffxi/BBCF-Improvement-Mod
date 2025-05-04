@@ -2,7 +2,6 @@
 #include <filesystem>
 #include <mutex>
 #include <thread>
-#include "Core/crashdump.h"
 #include "Core/interfaces.h"
 #include "Core/Settings.h"
 #include "Hooks/hooks_detours.h"
@@ -11,6 +10,7 @@
 #include "platform/filesystem.hpp"
 #include "proxies/dinput8_proxy.h"
 #include "ui/dialogs.hpp"
+#include "utilities/crash_handler.h"
 #include "utilities/memory_tools.h"
 #include "platform.h"
 #include "globals.hpp"
@@ -116,7 +116,7 @@ bool bbcf_im::start()
 
     LOG(1, "%s", "Starting bbcf_im::start thread")
 
-    SetUnhandledExceptionFilter(UnhandledExFilter);
+    SetUnhandledExceptionFilter(unhandled_exception_filter);
 
     if (!Settings::loadSettingsFile())
     {

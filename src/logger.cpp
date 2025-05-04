@@ -8,28 +8,8 @@
 #include <utility>
 #include "platform/filesystem.hpp"
 #include "Core/Settings.h"
+#include "utilities/string_tools.h"
 #include "logger.h"
-
-namespace
-{
-    std::mutex timestamp_mutex;
-
-    std::string get_timestamp()
-    {
-        std::lock_guard guard(timestamp_mutex);
-
-        // Format: 0000-00-00 00:00:00
-        // 19 characters.
-        time_t cur_time;
-        auto _ = time(&cur_time);
-
-        tm* info = localtime(&cur_time);  // NOLINT(concurrency-mt-unsafe)
-
-        auto timestamp_str = std::string(32, '\0');
-        const auto str_size = strftime(timestamp_str.data(), timestamp_str.size(), "%Y-%m-%d %H:%M:%S", info);
-        return timestamp_str.substr(0, str_size);
-    }
-}
 
 inline void bbcf_im_log_msg(const char* message, ...)
 {
@@ -160,7 +140,7 @@ bool logger::create_internal(const std::filesystem::path& log_dir)
         return false;
 
     _instance = std::make_unique<logger>(log_file_path, file_ptr);
-    const auto start_timestamp_str = get_timestamp();
+    const auto start_timestamp_str = timestamp_string();
 
     _instance->write("BBCF_FIX START - %s", start_timestamp_str.c_str());
     _instance->write("==================================================");
