@@ -10,54 +10,14 @@
 
 #include <detours.h>
 
-typedef HRESULT(__stdcall* Direct3DCreate9Ex_t)(UINT SDKVersion, IDirect3D9Ex**);
-typedef HRESULT(APIENTRY* D3DXCreateEffect_t)(LPDIRECT3DDEVICE9, LPCVOID, UINT, CONST D3DXMACRO*, LPD3DXINCLUDE, DWORD, LPD3DXEFFECTPOOL, LPD3DXEFFECT*, LPD3DXBUFFER*);
-typedef HRESULT(WINAPI* D3DXCreateSprite_t)(LPDIRECT3DDEVICE9 pDevice, LPD3DXSPRITE* ppSprite);
 typedef SteamAPICall_t(__fastcall* RequestLobbyList_t)(ISteamMatchmaking*);
 typedef bool (WINAPI* SteamAPI_Init_t)();
 typedef HWND(__stdcall* CreateWindowExW_t)(DWORD dwExStyle, LPCWSTR lpClassName, LPCWSTR lpWindowName,
 	DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam);
 
-Direct3DCreate9Ex_t orig_Direct3DCreate9Ex;
-D3DXCreateEffect_t orig_D3DXCreateEffect;
-D3DXCreateSprite_t orig_D3DXCreateSprite;
 RequestLobbyList_t orig_RequestLobbyList;
 SteamAPI_Init_t orig_SteamAPI_Init;
 CreateWindowExW_t orig_CreateWindowExW;
-
-HRESULT __stdcall hook_Direct3DCreate9Ex(UINT sdkVers, IDirect3D9Ex** pD3DEx)
-{
-	LOG(1, "Direct3DCreate9EX pD3DEx: 0x%p", pD3DEx)
-	HRESULT retval = orig_Direct3DCreate9Ex(sdkVers, pD3DEx); // real one
-
-	Direct3D9ExWrapper* ret = new Direct3D9ExWrapper(&*pD3DEx);
-	return retval;
-}
-
-HRESULT APIENTRY hook_D3DXCreateEffect(LPDIRECT3DDEVICE9 pDevice, LPCVOID pSrcData, UINT SrcDataLen,
-	CONST D3DXMACRO* pDefines, LPD3DXINCLUDE pInclude, DWORD Flags, LPD3DXEFFECTPOOL pPool, LPD3DXEFFECT* ppEffect,
-	LPD3DXBUFFER* ppCompilationErrors)
-{
-	LOG(7, "%s", "D3DXCreateEffect")
-	HRESULT hR = orig_D3DXCreateEffect(pDevice, pSrcData, SrcDataLen, pDefines, pInclude, Flags, pPool, ppEffect, ppCompilationErrors);
-	if (SUCCEEDED(hR))
-	{
-		ID3DXEffectWrapper* ret = new ID3DXEffectWrapper(&ppEffect);
-	}
-
-	return hR;
-}
-
-HRESULT WINAPI hook_D3DXCreateSprite(LPDIRECT3DDEVICE9 pDevice, LPD3DXSPRITE* ppSprite)
-{
-	LOG(7, "%s", "D3DXCreateSprite")
-	HRESULT hR = orig_D3DXCreateSprite(pDevice, ppSprite);
-	if (SUCCEEDED(hR))
-	{
-		ID3DXSpriteWrapper* ret = new ID3DXSpriteWrapper(&ppSprite);
-	}
-	return hR;
-}
 
 DWORD SteamMatchmakingFuncJmpBackAddr = 0;
 void __declspec(naked)GetSteamMatchmaking()
@@ -217,31 +177,17 @@ bool placeHooks_detours()
 {
 	LOG(1, "%s", "placeHooks_detours")
 
-	HMODULE hM_d3d9 = GetModuleHandleA("d3d9.dll");
-	HMODULE hM_d3dx9_43 = GetModuleHandleA("d3dx9_43.dll");
 	HMODULE hM_steam_api = GetModuleHandleA("steam_api.dll");
 	HMODULE hM_user32 = GetModuleHandleA("user32.dll");
 
-	PBYTE pDirect3DCreate9Ex = (PBYTE)GetProcAddress(hM_d3d9, "Direct3DCreate9Ex");
-	PBYTE pD3DXCreateEffect = (PBYTE)GetProcAddress(hM_d3dx9_43, "D3DXCreateEffect");
-	PBYTE pD3DXCreateSprite = (PBYTE)GetProcAddress(hM_d3dx9_43, "D3DXCreateSprite");
-	PBYTE pSteamAPI_Init = (PBYTE)GetProcAddress(hM_steam_api, "SteamAPI_Init");
+    PBYTE pSteamAPI_Init = (PBYTE)GetProcAddress(hM_steam_api, "SteamAPI_Init");
 	PBYTE pCreateWindowExW = (PBYTE)GetProcAddress(hM_user32, "CreateWindowExW");
 
-	if (!bbcf_im_log_hook_succeeded((PBYTE)pDirect3DCreate9Ex, "Direct3DCreate9Ex"))
-		return false;
-	if (!bbcf_im_log_hook_succeeded((PBYTE)pD3DXCreateEffect, "D3DXCreateEffect"))
-		return false;
-	if (!bbcf_im_log_hook_succeeded((PBYTE)pD3DXCreateSprite, "D3DXCreateSprite"))
-		return false;
 	if (!bbcf_im_log_hook_succeeded((PBYTE)pSteamAPI_Init, "SteamAPI_Init"))
 		return false;
 	if (!bbcf_im_log_hook_succeeded((PBYTE)pCreateWindowExW, "CreateWindowExW"))
 		return false;
 
-	orig_Direct3DCreate9Ex = (Direct3DCreate9Ex_t)DetourFunction(pDirect3DCreate9Ex, (LPBYTE)hook_Direct3DCreate9Ex);
-	orig_D3DXCreateEffect = (D3DXCreateEffect_t)DetourFunction(pD3DXCreateEffect, (LPBYTE)hook_D3DXCreateEffect);
-	orig_D3DXCreateSprite = (D3DXCreateSprite_t)DetourFunction(pD3DXCreateSprite, (LPBYTE)hook_D3DXCreateSprite);
 	orig_SteamAPI_Init = (SteamAPI_Init_t)DetourFunction(pSteamAPI_Init, (LPBYTE)hook_SteamAPI_Init);
 	orig_CreateWindowExW = (CreateWindowExW_t)DetourFunction(pCreateWindowExW, (LPBYTE)hook_CreateWindowExW);
 

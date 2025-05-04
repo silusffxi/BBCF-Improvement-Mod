@@ -7,14 +7,19 @@
 #include "Hooks/hooks_detours.h"
 #include "Overlay/WindowManager.h"
 
+#include "d3d/d3d_hooks.h"
+#include "Hooks/hooks_bbcf.h"
+#include "Hooks/hooks_detours.h"
 #include "platform/filesystem.hpp"
 #include "proxies/dinput8_proxy.h"
 #include "ui/dialogs.hpp"
 #include "utilities/crash_handler.h"
+#include "utilities/hook_tools.hpp"
 #include "utilities/memory_tools.h"
 #include "platform.h"
 #include "globals.hpp"
 #include "logger.h"
+#include <MinHook.h>
 #include "bbcf_im.hpp"
 
 using namespace bbcf_im;
@@ -132,6 +137,22 @@ bool bbcf_im::start()
         ExitProcess(0);
     }
 
+    const auto mh_init_result = MH_Initialize();
+    if (mh_init_result != MH_OK)
+    {
+        logger::instance()->write("Failed to initialize MinHook. Error: %s",
+            hook_tools::mh_status_string(mh_init_result).c_str());
+
+        ui::dialogs::show_error("BBCFIM", "Failed to initialize hooks.");
+        return false;
+    }
+
+    if (!install_d3d_hooks())
+    {
+        ui::dialogs::show_error("BBCFIM", "Failed to install D3D hooks.");
+        ExitProcess(ERROR_DLL_INIT_FAILED);
+    }
+
     if (!placeHooks_detours())
     {
         ui::dialogs::show_error("BBCFIM", "Failed IAT hook");
@@ -151,6 +172,15 @@ void bbcf_im::shutdown()
 
     WindowManager::GetInstance().Shutdown();
     CleanupInterfaces();
+
+    remove_d3d_hooks();
+    const auto mh_shutdown_result = MH_Uninitialize();
+    if (mh_shutdown_result != MH_OK)
+    {
+        logger::instance()->write("Failed to shutdown MinHook. Error: %s",
+            hook_tools::mh_status_string(mh_shutdown_result).c_str());
+    }
+
     proxies::dinput8_proxy::shutdown();
     logger::shutdown();
     bbcf_im_started = false;

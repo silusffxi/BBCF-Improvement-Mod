@@ -407,3 +407,4 @@ FodyWeavers.xsd
 .local/
 dist/
 build/
+!src/win32/
