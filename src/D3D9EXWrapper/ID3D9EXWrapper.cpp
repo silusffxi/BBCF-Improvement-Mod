@@ -12,6 +12,11 @@ Direct3D9ExWrapper::Direct3D9ExWrapper(IDirect3D9Ex **ppIDirect3D9Ex)
 	*ppIDirect3D9Ex = this;
 }
 
+Direct3D9ExWrapper::Direct3D9ExWrapper(IDirect3D9Ex *pDirect3D9Ex) :
+	Direct3D9Ex(pDirect3D9Ex)
+{
+}
+
 Direct3D9ExWrapper::~Direct3D9ExWrapper() {}
 
 HRESULT APIENTRY Direct3D9ExWrapper::RegisterSoftwareDevice(void* pInitializeFunction)

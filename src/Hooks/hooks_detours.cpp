@@ -27,13 +27,28 @@ RequestLobbyList_t orig_RequestLobbyList;
 SteamAPI_Init_t orig_SteamAPI_Init;
 CreateWindowExW_t orig_CreateWindowExW;
 
+Direct3DCreate9Ex_t target_Direct3DCreate9Ex   = nullptr;
+JMPBACKADDR         jmp_back_Direct3DCreate9Ex = 0;
+
 HRESULT __stdcall hook_Direct3DCreate9Ex(UINT sdkVers, IDirect3D9Ex** pD3DEx)
 {
 	LOG(1, "Direct3DCreate9EX pD3DEx: 0x%p\n", pD3DEx);
-	HRESULT retval = orig_Direct3DCreate9Ex(sdkVers, pD3DEx); // real one
 
-	Direct3D9ExWrapper* ret = new Direct3D9ExWrapper(&*pD3DEx);
-	return retval;
+	IDirect3D9Ex* instance = nullptr;
+
+	// Call the "real" Direct3DCreate9Ex as far as BBCF is aware.
+	// This will likely have already been patched by GameOverlayRender.dll from Steam.
+	//
+	// Either way, since we hooked higher up the chain, then it shouldn't really affect us.
+	const auto result = target_Direct3DCreate9Ex(sdkVers, &instance);
+	if (SUCCEEDED(result))
+	{
+		// Wrap the created instance of IDirect3D9Ex, then return the
+		// wrapper as if it were the real instance.
+		*pD3DEx = new Direct3D9ExWrapper(instance);
+	}
+
+	return result;
 }
 
 HRESULT APIENTRY hook_D3DXCreateEffect(LPDIRECT3DDEVICE9 pDevice, LPCVOID pSrcData, UINT SrcDataLen,
@@ -230,6 +245,8 @@ bool placeHooks_detours()
 	PBYTE pSteamAPI_Init = (PBYTE)GetProcAddress(hM_steam_api, "SteamAPI_Init");
 	PBYTE pCreateWindowExW = (PBYTE)GetProcAddress(hM_user32, "CreateWindowExW");
 
+	target_Direct3DCreate9Ex = (Direct3DCreate9Ex_t)pDirect3DCreate9Ex;
+
 	if (!hookSucceeded((PBYTE)pDirect3DCreate9Ex, "Direct3DCreate9Ex"))
 		return false;
 	if (!hookSucceeded((PBYTE)pD3DXCreateEffect, "D3DXCreateEffect"))
@@ -241,7 +258,12 @@ bool placeHooks_detours()
 	if (!hookSucceeded((PBYTE)pCreateWindowExW, "CreateWindowExW"))
 		return false;
 
-	orig_Direct3DCreate9Ex = (Direct3DCreate9Ex_t)DetourFunction(pDirect3DCreate9Ex, (LPBYTE)hook_Direct3DCreate9Ex);
+	//orig_Direct3DCreate9Ex = (Direct3DCreate9Ex_t)DetourFunction(pDirect3DCreate9Ex, (LPBYTE)hook_Direct3DCreate9Ex);
+	jmp_back_Direct3DCreate9Ex = HookManager::SetCallHook("BBCF!Direct3DCreate9Ex",
+		"\xE8\x88\xC9\x39\x00",
+		"xxxxx", 5,
+		hook_Direct3DCreate9Ex);
+
 	orig_D3DXCreateEffect = (D3DXCreateEffect_t)DetourFunction(pD3DXCreateEffect, (LPBYTE)hook_D3DXCreateEffect);
 	orig_D3DXCreateSprite = (D3DXCreateSprite_t)DetourFunction(pD3DXCreateSprite, (LPBYTE)hook_D3DXCreateSprite);
 	orig_SteamAPI_Init = (SteamAPI_Init_t)DetourFunction(pSteamAPI_Init, (LPBYTE)hook_SteamAPI_Init);

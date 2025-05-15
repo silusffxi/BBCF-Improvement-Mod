@@ -31,6 +31,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 	hooks[index].mask = mask;
 	hooks[index].length = len;
 	hooks[index].newFunc = newFunc;
+	hooks[index].type = FuncHookType::Jmp;
 
 	DWORD startAddress = FindPattern(pattern, mask);
 	hooks[index].startAddress = startAddress;
@@ -54,7 +55,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, const char* pattern, const c
 
 	if (activate)
 	{
-		if (!PlaceHook((void*)startAddress, newFunc, len))
+		if (!PlaceJmpHook((void*)startAddress, newFunc, len))
 		{
 			LOG(2, "%s hook failed.\n", label);
 			return 0;
@@ -91,6 +92,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 	hooks[index].length = len;
 	hooks[index].newFunc = newFunc;
 	hooks[index].startAddress = startAddress;
+	hooks[index].type = FuncHookType::Jmp;
 
 	if (!startAddress)
 	{
@@ -111,7 +113,7 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 
 	if (activate)
 	{
-		if (!PlaceHook((void*)startAddress, newFunc, len))
+		if (!PlaceJmpHook((void*)startAddress, newFunc, len))
 		{
 			LOG(2, "%s hook failed.\n", label);
 			return 0;
@@ -122,6 +124,67 @@ JMPBACKADDR HookManager::SetHook(const char* label, DWORD startAddress, const in
 
 	return jmpBackAddr;
 }
+
+JMPBACKADDR HookManager::SetCallHook(const char* label, const char* pattern, const char* mask, const int length, void* newFunc, bool activate)
+{
+	/*Hooks to an adress found using a pattern*/
+	if (length > MAX_LENGTH)
+	{
+		LOG(2, "Overwritten bytes more than %d (%d)! \n", MAX_LENGTH, length);
+		return 0;
+	}
+
+	//check if there is already a hook registered with same label
+	int index = GetHookStructIndex(label);
+	if (index != -1)
+	{
+		LOG(2, "%s hook already present!\n", label);
+		return hooks[index].jmpBackAddr;
+	}
+
+	hooks.push_back(functionhook_t{});
+	index = hooks.size() - 1;
+	hooks[index].label = label;
+	hooks[index].pattern = pattern;
+	hooks[index].mask = mask;
+	hooks[index].length = length;
+	hooks[index].newFunc = newFunc;
+	hooks[index].type = FuncHookType::Call;
+
+	DWORD startAddress = FindPattern(pattern, mask);
+	hooks[index].startAddress = startAddress;
+
+	if (!startAddress)
+	{
+		LOG(2, "%s signature scanning returned 0\n", label);
+		return 0;
+	}
+
+	LOG(2, "%s found at: 0x%p\n", label, startAddress);
+
+	if (!SaveOriginalBytes(index, (void*)startAddress, length))
+	{
+		LOG(2, "Saving original bytes failed.\n");
+		return 0;
+	}
+
+	DWORD jmpBackAddr = startAddress + length;
+	hooks[index].jmpBackAddr = jmpBackAddr;
+
+	if (activate)
+	{
+		if (!PlaceCallHook((void*)startAddress, newFunc, length))
+		{
+			LOG(2, "%s hook failed.\n", label);
+			return 0;
+		}
+		hooks[index].activated = true;
+		LOG(2, "Hook set on %s\n", label);
+	}
+
+	return jmpBackAddr;
+}
+
 //sets new hooked address to an existing hook struct
 bool HookManager::SetHook(const char* label, void* newFunc, bool activate)
 {
@@ -137,7 +200,7 @@ bool HookManager::SetHook(const char* label, void* newFunc, bool activate)
 
 	if (activate)
 	{
-		if (!PlaceHook((void*)hooks[index].startAddress, newFunc, hooks[index].length))
+		if (!PlaceJmpHook((void*)hooks[index].startAddress, newFunc, hooks[index].length))
 		{
 			LOG(2, "%s hook failed.\n", label);
 			return false;
@@ -192,7 +255,15 @@ bool HookManager::ActivateHook(const char* label)
 	if (hooks[index].activated)
 		return true;
 
-	if (!PlaceHook((void*)hooks[index].startAddress, hooks[index].newFunc, hooks[index].length))
+	if (hooks[index].type == FuncHookType::Jmp &&
+		!PlaceJmpHook((void*)hooks[index].startAddress, hooks[index].newFunc, hooks[index].length))
+	{
+		LOG(2, "%s hook failed.\n", label);
+		return false;
+	}
+
+	if (hooks[index].type == FuncHookType::Call &&
+		!PlaceCallHook((void*)hooks[index].startAddress, hooks[index].newFunc, hooks[index].length))
 	{
 		LOG(2, "%s hook failed.\n", label);
 		return false;
@@ -287,6 +358,7 @@ JMPBACKADDR HookManager::RegisterHook(const char* label, const char* pattern, co
 	hooks[index].mask = mask;
 	hooks[index].length = len;
 	hooks[index].newFunc = 0;
+	hooks[index].type = FuncHookType::Jmp;
 
 	DWORD startAddress = FindPattern(pattern, mask);
 	hooks[index].startAddress = startAddress;
@@ -387,7 +459,32 @@ bool HookManager::RestoreOriginalBytes(int index)
 	return true;
 }
 
-bool HookManager::PlaceHook(void* toHook, void* ourFunc, int len)
+bool HookManager::PlaceCallHook(void* toHook, void* ourFunc, int len)
+{
+	if (len < 5 || len > MAX_LENGTH)
+	{
+		return false;
+	}
+
+	DWORD curProtection;
+	if (!VirtualProtect(toHook, len, PAGE_EXECUTE_READWRITE, &curProtection))
+		return false;
+
+	memset(toHook, 0x90, len);
+
+	DWORD relativeAddress = ((DWORD)ourFunc - (DWORD)toHook) - 5;
+
+	*(BYTE*)toHook = 0xE8;
+	*(DWORD*)((DWORD)toHook + 1) = relativeAddress;
+
+	DWORD temp;
+	if (!VirtualProtect(toHook, len, curProtection, &temp))
+		return false;
+
+	return true;
+}
+
+bool HookManager::PlaceJmpHook(void* toHook, void* ourFunc, int len)
 {
 	if (len < 5 || len > MAX_LENGTH)
 	{

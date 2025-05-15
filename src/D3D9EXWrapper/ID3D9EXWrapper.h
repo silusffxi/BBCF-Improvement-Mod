@@ -5,8 +5,8 @@
 interface Direct3D9ExWrapper : public IDirect3D9Ex
 {
 public:
-
 	Direct3D9ExWrapper(IDirect3D9Ex **ppIDirect3D9Ex);
+	Direct3D9ExWrapper(IDirect3D9Ex *pDirect3D9Ex);
 	virtual ~Direct3D9ExWrapper();
 
 	IDirect3D9Ex* Direct3D9Ex;

@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <Windows.h>
@@ -6,6 +7,13 @@
 #define MAX_LENGTH 32
 
 typedef DWORD JMPBACKADDR;
+
+enum class FuncHookType : uint8_t
+{
+	Unknown = 0,
+	Call    = 1,
+	Jmp     = 2,
+};
 
 struct functionhook_t
 {
@@ -18,6 +26,7 @@ struct functionhook_t
 	void* newFunc;
 	char originalBytes[MAX_LENGTH];
 	bool activated; //is the hook in effect
+	FuncHookType type = FuncHookType::Unknown;
 };
 
 class HookManager
@@ -25,6 +34,8 @@ class HookManager
 public:
 	static JMPBACKADDR SetHook(const char* label, const char* pattern, const char* mask, const int length, void* newFunc, bool activate = true); //Hooks to a found adress, returns 0 if hook failed
 	static JMPBACKADDR SetHook(const char* label, DWORD startAddress, const int length, void* newFunc, bool activate = true); //Hooks to direct adress, returns 0 if hook failed
+	/// Set a hook that will use a call instruction rather than a jmp instruction.
+	static JMPBACKADDR SetCallHook(const char* label, const char* pattern, const char* mask, const int length, void* newFunc, bool activate = true);
 	static bool SetHook(const char* label, void* newFunc, bool activate = true); 
 	static bool IsHookActivated(const char* label);
 	static bool ActivateHook(const char* label); //0 hook not found, 1 success
@@ -43,7 +54,8 @@ private:
 	static std::vector<functionhook_t> hooks; //stores hook structs
 	static int GetHookStructIndex(const char* label); //returns the index of hook struct
 	static bool SaveOriginalBytes(int hookIndex, void* startAddress, int len);
-	static bool PlaceHook(void* toHook, void* ourFunc, int len);
+	static bool PlaceCallHook(void* toHook, void* ourFunc, int len);
+	static bool PlaceJmpHook(void* toHook, void* ourFunc, int len);
 	static bool RestoreOriginalBytes(int functionhook_index);
 	static DWORD FindPattern(const char* pattern, const char* mask);
 };
