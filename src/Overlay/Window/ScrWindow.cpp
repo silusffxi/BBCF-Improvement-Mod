@@ -198,6 +198,10 @@ void ScrWindow::DrawGenericOptionsSection() {
 void ScrWindow::swap_character_coordinates() {
     CharData* p1 = g_interfaces.player1.GetData();
     CharData* p2 = g_interfaces.player2.GetData();
+
+    if (p1 == nullptr || p2 == nullptr)
+        return;
+
     auto posx1 = p1->position_x;
     auto posy1 = p1->position_y;
     p1->facingLeft = !p1->facingLeft;
@@ -262,13 +266,10 @@ void ScrWindow::DrawStatesSection()
         ImGui::SameLine();
         static bool swap_character_coords_toggle = false;
         ImGui::Checkbox("Always swap coordinates", &swap_character_coords_toggle);
-        if (swap_character_coords_toggle && *g_gameVals.pFrameCount ==5) {
+        if (swap_character_coords_toggle && *g_gameVals.pFrameCount == 5) {
             ScrWindow::swap_character_coordinates();
         }
-
-
     }
-
 
     if (!ImGui::CollapsingHeader("States"))
         return;
