@@ -28,7 +28,6 @@ namespace
 {
     std::atomic_bool    bbcf_im_started = false;
     std::mutex          bbcf_im_start_mutex;
-    
 
     /**
     *@brief Creates directories required by the DLL.

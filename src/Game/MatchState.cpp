@@ -93,9 +93,6 @@ void MatchState::OnMatchEnd()
 	
 }
 
-
-
-
 void MatchState::OnUpdate()
 {
 	LOG(7, "%s", "MatchState::OnUpdate")
@@ -110,7 +107,7 @@ void MatchState::OnUpdate()
 
 void MatchState::OnIntroPlaying() 
 {
-	LOG(7, "MatchState::OnIntroPlaying\n");
+    LOG(7, "%s", "MatchState::OnIntroPlaying")
 
 	if (*g_gameVals.pGameMode == GameMode_ReplayTheater) {
 		WindowManager::GetInstance().GetWindowContainer()->GetWindow<ReplayRewindWindow>(WindowType_ReplayRewind)->Open();

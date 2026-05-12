@@ -11,8 +11,7 @@ modValues_t g_modVals = {};
 
 void InitManagers()
 {
-	//LOG(1, "%s", "InitManagers")
-	LOG(1, "InitManagers\n");
+	LOG(1, "%s", "InitManagers")
 	
 	if (g_interfaces.pSteamNetworkingWrapper &&
 		g_interfaces.pSteamUserWrapper &&

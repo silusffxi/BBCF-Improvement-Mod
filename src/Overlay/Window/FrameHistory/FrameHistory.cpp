@@ -1,7 +1,7 @@
 #include "FrameHistory.h"
 #include "Overlay/Window/FrameAdvantage/PlayerExtendedData.h"
 #include <cstddef>
-#include "Core/logger.h"
+#include "../../../logger.h"
 #include "Overlay/Logger/ImGuiLogger.h"
 #define MAX(a,b)            (((a) > (b)) ? (a) : (b))
 

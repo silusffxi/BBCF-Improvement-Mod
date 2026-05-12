@@ -46,7 +46,7 @@ void ScrWindow::Draw()
     DrawSaveStates();
     DrawReplayTheaterSection();
 //#ifdef _DEBUG
-    DrawReplayRewind();
+    //DrawReplayRewind();
 //#endif // !DEBUG
     DrawReplayTakeover();
     DrawRoomSection();

@@ -11,14 +11,10 @@
 #include "Overlay/WindowManager.h"
 #include "SteamApiWrapper/steamApiWrappers.h"
 #include "Core/info.h"
+#include "Core/Settings.h"
 #include <string>
 #include "Web/update_check.h"
 #include "Game/ReplayFiles/ReplayFileManager.h"
-
-
-
-
-
 
 DWORD GetGameStateTitleScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateTitleScreen()
@@ -723,7 +719,7 @@ void BeforeWriteReplayListDat_Helper()
 DWORD BeforeWriteReplayListDatJmpBackAddr = 0;
 void __declspec(naked)BeforeWriteReplayListDat()
 {
-	LOG_ASM(2, "BeforeWriteReplayListDat\n");
+	LOG_ASM(2, "%s", "BeforeWriteReplayListDat")
 	__asm {
 		pushfd
 		pushad
@@ -739,7 +735,7 @@ void __declspec(naked)BeforeWriteReplayListDat()
 
 void __declspec(naked)SkipReplayListConfirm()
 {
-	LOG_ASM(2, "SkipReplayListConfirm\n");
+    LOG_ASM(2, "%s", "SkipReplayListConfirm")
 
 	static char* continue_load;
 	continue_load = GetBbcfBaseAdress() + 0x002c2bcf;

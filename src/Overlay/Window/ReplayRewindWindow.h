@@ -12,8 +12,8 @@ public:
 	~ReplayRewindWindow() override = default;
 	unsigned int count_entities(bool unk_status2);
 	std::vector<int> find_nearest_checkpoint(std::vector<unsigned int>);
+
 protected:
-	
 	void Draw();
 	WindowContainer* m_pWindowContainer = nullptr;
 
